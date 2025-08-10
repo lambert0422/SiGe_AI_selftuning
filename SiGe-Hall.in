@@ -1,0 +1,1954 @@
+#
+#---------------------------------------------------------------------------#
+$Import 						= 				            0                        # Flag for import potential files
+$ImportFormat   					= 				            AVS                      # File format of the imported file
+$ImportPotentialFile 				= 				            " "                      # Path to imported file
+$BKD_donor                                =                                   0
+$QuantumSelfConsistent 				= 				            0                       # Flag for solving self-consistent quantum-poisson solver
+$M1D 							=				            1                       # Flag for solve 1D or 3D
+$M3D 							= 				            1-$M1D 
+$InSwp                                    =                                   0
+$NextNanoRun                              =                                   1                        # whether to run in nextnano or python, in python no need to output to specific folder
+$FullOutput                               =                                   1 
+$BKD                                      =                                   0
+$SurfaceCharge                            =                                   0
+$HalfMesuSize                             =                                   50
+!IF($QuantumSelfConsistent)
+   $QuantumFlag                           =                       "SiGe_1D_Q"
+!ELSE
+   $QuantumFlag                           =                       "SiGe_1D"
+!ENDIF
+
+$folderHeader                             =                       "../"   
+$SurfaceChargeD                           =                       1 #(DisplayUnit:nm)
+
+#---------------------------------------------------------------------------#
+#Tuning Parameter#
+#---------------------------------------------------------------------------#
+$GateSchottyBarrier 		            = 			      0.25# 5.32 # (DisplayUnit:eV) #the height of the Schottky barrier between metal and SiOx
+$IonizeE                                  =                       0.045 #0.045 
+$IonizeE_BK                               =                       0.001# 0.0054 
+$SurfaceDensity                           =                       1.8e18/$SurfaceChargeD
+$SurfaceDensity_Gate                           =                  4.5e18/$SurfaceChargeD
+
+$BK_Doping                                =                       1e14
+$B_Doping 						= 				5e17 		             # N-type doping concentration 1.2e17(DisplayUnit:cm-3)
+#---------------------------------------------------------------------------#
+
+$Bias_Gate1 						= 		0#THIS VARIABLE IS UNDER SWEEP
+$Bias_Gate2 						= 			      0.5# THIS VARIABLE IS UNDER SWEEP
+$Bias_Gate3 						= 			      0.3# THIS VARIABLE IS UNDER SWEEP
+$Bias_Gate4 						= 			      0.2# THIS VARIABLE IS UNDER SWEEP
+$Bias_Gate5 						= 			      0.2# THIS VARIABLE IS UNDER SWEEP
+$Bias_Gate6 						= 			      0.1# THIS VARIABLE IS UNDER SWEEP
+$Bias_Gate7                                     =                       0
+$Bias_NbN =  0
+
+$Bias_Gate_min                            =                       0
+$Bias_Gate_max                            =                       -1
+
+
+
+
+!IF($M1D)
+   $QuantiseX                             =                       0                              
+   $GRID_FACTOR 					= 				0.1#Greater the coasrer the grid
+   #IF $NextNanoRun $outputfolder         =                       $folderHeader+ "F1D_" +$QuantumFlag
+
+!ELSE
+   $QuantiseX                             =                       1                              
+   $GRID_FACTOR 					= 				1 #Greater the coasrer the grid
+   #IF $NextNanoRun $outputfolder         =                       $folderHeader+ "F3D_" +$QuantumFlag
+!ENDIF
+
+
+$kpband                                   =                       0
+$Nokpband                                 =                       1-$kpband   
+  
+
+
+
+
+
+
+
+
+$GRID_FACTOR_xy                           =                       1
+$ExpendGridPoints 				= 				10
+
+
+
+$SkipThickness 				      = 			      4305.0 # Skipped region when doing simulation(DisplayUnit:nm)
+#$SkipThickness 				      = 			      1800.0 # Skipped region when doing simulation(DisplayUnit:nm)
+
+#$BottomSchottyBarrier 				= 				0.425#5.32 # (DisplayUnit:eV)
+$BottomSchottyBarrier 				= 				0.7#5.32 # (DisplayUnit:eV)
+
+
+
+
+
+#---------------------------------------------------------------------------#
+# Conditional Script variable                                                               
+#---------------------------------------------------------------------------#
+$NUM_EIGENSTATES_el 				= 				            100 # number of electron eigenstates
+$NUM_EIGENSTATES_hl 				= 				            100 # number of hole eigenstates
+
+
+$SchottyDoped 					               =               		   0
+$OhmicDoped 					               =                		   0
+$FermiDoped 					               =                 	   0
+$ZeroFieldDoped 					            =             		      0
+$ChargeNeutralDoped 				            =         			      0
+
+$Schotty2DEGBulk 					            =            		      0
+$Ohmic2DEGBulk 					            =              		   0
+$Fermi2DEGBulk 					            =              		   0
+$ZeroField2DEGBulk 				            =          			      0
+$ChargeNeutral2DEGBulk 				         =      			         0
+
+$SchottyGate 					               =                		   1
+$OhmicGate 						               =                 	   0
+$FermiGate 						               =                  	   0
+$ZeroFieldGate 					            =              		   0
+$ChargeNeutralGate 				            =          			      0
+#IF $M3D $SchottyNbN 					               =                		   0
+#IF $M3D $OhmicNbN 						               =                 	   0
+#IF $M3D $FermiNbN 						               =                  	   0
+#IF $M3D $ZeroFieldNbN					            =              		   1
+#IF $M3D $ChargeNeutralNbN 				            =          			      0
+
+
+$Schotty2DEG 					               =                		   0
+!IF($M1D)
+$Bias_Gate_step                           =                       50
+$Ohmic2DEG 						               =                  	   0
+$Fermi2DEG 						               =                  	   0
+$ZeroField2DEG 					            =              		   0
+$ChargeNeutral2DEG 				            =          			      0
+
+$SchottyTopNoGate = 0
+$OhmicTopNoGate = 0
+$FermiTopNoGate = 0
+$ZeroFieldTopNoGate = 0
+$ChargeNeutralTopNoGate = 0
+!ELSE
+$Bias_Gate_step                           =                       2
+$Ohmic2DEG 						               =                  	   0
+$Fermi2DEG 						               =                  	   0
+$ZeroField2DEG 					            =              		   0
+$ChargeNeutral2DEG 				            =          			      0
+
+$SchottyTopNoGate 				            =           		      0
+$OhmicTopNoGate 					            =             		      0
+$FermiTopNoGate 					            =             		      1
+$ZeroFieldTopNoGate 				            =         			      0
+$ChargeNeutralTopNoGate 			         =    		 		         0
+
+!ENDIF
+
+$SchottyInsuBulk 					            =            		      0
+$OhmicInsuBulk 					            =              		   0
+$FermiInsuBulk 					            =              		   1
+$ZeroFieldInsuBulk 				            =          			      0
+$ChargeNeutralInsuBulk 				         =      			         0
+
+$SchottyCap 					               =            		      0
+$OhmicCap 						               =              		   0
+$FermiCap 						               =              		   1
+$ZeroFieldCap 					               =          			      0
+$ChargeNeutralCap 				            =      			         0
+
+$SchottyAir 					               =            		      0
+$OhmicAir 						               =              		   0
+$FermiAir 						               =              		   1
+$ZeroFieldAir 					               =          			      0
+$ChargeNeutralAir 				            =      			         0
+
+$SchottyBottom 					            =              		   0
+$OhmicBottom 					               =                		   0
+$FermiBottom 					               =                		   1
+$ZeroFieldBottom 					            =            		      0
+$ChargeNeutralBottom 				         =        			      0
+
+$TwoDEGBulkBCFlag 				            = 				            $Schotty2DEGBulk +$Ohmic2DEGBulk +$Fermi2DEGBulk +$ZeroField2DEGBulk +$ChargeNeutral2DEGBulk 
+$TwoDEGBCFlag 					               = 				            $Schotty2DEG +$Ohmic2DEG +$Fermi2DEG +$ZeroField2DEG +$ChargeNeutral2DEG 
+$DopedBCFlag 					               = 				            $SchottyDoped +$OhmicDoped +$FermiDoped +$ZeroFieldDoped +$ChargeNeutralDoped 
+$GateBCFlag 					               =  				         $SchottyGate +$OhmicGate +$FermiGate +$ZeroFieldGate +$ChargeNeutralGate 
+
+!IF($M1D)
+$TopNoGateBCFlag 					            = 				            0
+!ELSE
+$TopNoGateBCFlag 					            = 				            $SchottyTopNoGate +$OhmicTopNoGate +$FermiTopNoGate +$ZeroFieldTopNoGate +$ChargeNeutralTopNoGate
+!ENDIF
+
+$BottomBCFlag 					               = 				            $SchottyBottom +$OhmicBottom +$FermiBottom +$ZeroFieldBottom +$ChargeNeutralBottom 
+$InsuBulkBCFlag 					            = 				            $SchottyInsuBulk +$OhmicInsuBulk +$FermiInsuBulk +$ZeroFieldInsuBulk +$ChargeNeutralInsuBulk 
+$CapBCFlag 						               = 				            $SchottyCap +$OhmicCap +$FermiCap +$ZeroFieldCap +$ChargeNeutralCap 
+$AirBCFlag                                            = 				            $SchottyAir +$OhmicAir +$FermiAir +$ZeroFieldAir +$ChargeNeutralAir 
+
+#---------------------------------------------------------------
+# Define the size of the semiconductor region simulated
+# and the size of the split gate
+# The x direction is along the junction 4um, 
+# y direction is along the gap 800nm
+# for 4QPC size, refer to the PPT
+#---------------------------------------------------------------
+#---------------------------------------------------------------------------#
+# Define the meshing grid spacing
+
+$GRID_x_Junc 					               = 				            2  *$GRID_FACTOR_xy
+$GRID_x_Gate 					               = 				            15  *$GRID_FACTOR_xy
+$GRID_y_Gate 					               = 				            15  *$GRID_FACTOR_xy
+$GRID_y_Junc 					               = 				            2  *$GRID_FACTOR_xy
+
+$GRID_z_SUB 					               =	 			            100  *$GRID_FACTOR
+$GRID_z_BUF 					               = 				            200  *$GRID_FACTOR
+$GRID_z_2DEG 					               = 				            1   *$GRID_FACTOR
+$GRID_z_SPACER 					            = 				            5   *$GRID_FACTOR
+$GRID_z_DOPED 					               = 				            1   *$GRID_FACTOR
+$GRID_z_CAP 					               = 				            1 *$GRID_FACTOR
+$GRID_z_INSU 					               = 				            10   *$GRID_FACTOR
+$GRID_z_GATE 					               = 				            20  *$GRID_FACTOR
+$GRID_z_AIR 					               = 				            100  *$GRID_FACTOR
+#---------------------------------------------------------------
+# Define the Layered structure thickness of every material
+# The order is bottom up (see On-Chip Andreev Devices Hard...)
+#---------------------------------------------------------------
+
+
+$THICK_Si_SUBSTRATE 				         = 				            200.0 			# (DisplayUnit:nm)
+$THICK_Ge_BUFFER 				            = 				            1000.0 			# (DisplayUnit:nm)
+$THICK_SiGe_Graded_BUFFER 				            = 				            1000.0 			# (DisplayUnit:nm)
+$THICK_SiGe_BUFFER 				            = 				            2000.0 			# (DisplayUnit:nm)
+$THICK_B_SiGe    =    5
+$THICK_SiGe_SPACER = 100
+$THICK_Ge_QW    =    15
+$THICK_SiGe_CAP    =  75
+$THICK_Ge_CAP    =  4
+$THICK_AlOx_INSU    =  10
+$THICK_AuTi_GATE    =  50
+$THICK_Air_DIELEC 				            = 				            800.0			# (DisplayUnit:nm)
+
+#---------------------------------------------------------------------------#
+# derived parameters
+#---------------------------------------------------------------------------#
+$Length = 1235
+$Width = 1350
+$x_min						                  = 				            -$ExpendGridPoints *$GRID_x_Junc
+$y_min 						                  = 				            -$ExpendGridPoints *$GRID_y_Junc
+$x_max 						                  = 				            $Width + $ExpendGridPoints *$GRID_x_Junc 
+$y_max 						                  = 				            $Length +$ExpendGridPoints *$GRID_y_Junc 
+
+
+$START_Si_SUBSTRATE 				          = 				            0.0 - $SkipThickness # Get the starting z position of every layer        (DisplayUnit:nm) -1825
+$START_Ge_BUFFER 				            = 				                  $START_Si_SUBSTRATE + $THICK_Si_SUBSTRATE # (DisplayUnit:nm) -1625
+$START_SiGe_Graded_BUFFER 				            = 				      $START_Ge_BUFFER + $THICK_Ge_BUFFER # (DisplayUnit:nm) -1375
+$START_SiGe_BUFFER 				            = 				            $START_SiGe_Graded_BUFFER + $THICK_SiGe_Graded_BUFFER # (DisplayUnit:nm) -1300
+$START_B_SiGe   =    $START_SiGe_BUFFER +$THICK_SiGe_BUFFER 
+$START_SiGe_SPACER = $START_B_SiGe   +$THICK_B_SiGe
+$START_Ge_QW    			           = 				                       $START_SiGe_SPACER + $THICK_SiGe_SPACER # (DisplayUnit:nm) -1250
+
+$START_SiGe_CAP 				           = 				            $START_Ge_QW    + $THICK_Ge_QW    # (DisplayUnit:nm)
+$START_Ge_CAP				          = 				            $START_SiGe_CAP + $THICK_SiGe_CAP # (DisplayUnit:nm)
+$START_AlOx_INSU 					            = 				            $START_Ge_CAP + $THICK_Ge_CAP # (DisplayUnit:nm)
+$START_AuTi_GATE 					            = 				            $START_AlOx_INSU + $THICK_AlOx_INSU # (DisplayUnit:nm)
+$End_AuTi_GATE 					            = 				            $START_AuTi_GATE + $THICK_AuTi_GATE # (DisplayUnit:nm)
+$END_Device 					               = 				            $START_AuTi_GATE + $THICK_Air_DIELEC # (DisplayUnit:nm)
+
+
+ #---------------------------------------------------------------------------#
+
+global{ 
+	!IF($M3D)
+		simulate3D{}
+#            periodic{ x = no
+#               y = no
+#               z = no}
+   	!ELSE
+      	simulate1D{}   
+   	!ENDIF
+
+
+   	crystal_zb{ # Specify the lattic direction w.r.t. the x,y,z in the simulation 
+      	x_hkl = [0, 0, 1]
+      	y_hkl = [0, 1, 0]
+   	}
+
+   	substrate{
+      	name = "Si" 
+   	}
+   	temperature_dependent_bandgap = yes
+   	temperature = 0.29 # Kelvin
+}
+
+
+grid{ # Specify the mesh grid spacing, the +-3 is the margin for the BC to be applied
+#IF $M3D   zgrid{
+#IF $M3D         line{ pos = $x_min             spacing = $GRID_x_Junc }
+#IF $M3D         line{ pos = 71.4       spacing = 90}
+#IF $M3D         line{ pos = 357.0      spacing = 14.4}
+#IF $M3D         line{ pos = 414.6      spacing = 14.4}
+#IF $M3D         line{ pos = 429.0      spacing = 9.4}
+#IF $M3D         line{ pos = 466.6      spacing = 9.4}
+#IF $M3D         line{ pos = 476.0      spacing = 3.6}
+#IF $M3D         line{ pos = 490.4      spacing = 3.6}
+#IF $M3D         line{ pos = 494.0      spacing = 3.0}
+#IF $M3D         line{ pos = 506.0      spacing = 3.0}
+#IF $M3D         line{ pos = 509.0      spacing = 2.0}
+#IF $M3D         line{ pos = 517.0      spacing = 2.0}
+#IF $M3D         line{ pos = 519.0      spacing = 1.0}
+#IF $M3D         line{ pos = 520        spacing = 1.0}
+#IF $M3D         line{ pos = 522.0      spacing = 2.0}
+#IF $M3D         line{ pos = 532.0      spacing = 2.0}
+#IF $M3D         line{ pos = 534.25     spacing = 2.2}
+#IF $M3D         line{ pos = 538.75     spacing = 2.2}
+#IF $M3D         line{ pos = 541.0      spacing = 2.0}
+#IF $M3D         line{ pos = 571.0      spacing = 2.0}
+#IF $M3D         line{ pos = 573.3333333333334 spacing = 2.3}
+#IF $M3D         line{ pos = 578.0      spacing = 2.3}
+#IF $M3D         line{ pos = 581.0      spacing = 3.0}
+#IF $M3D         line{ pos = 590.0      spacing = 3.0}
+#IF $M3D         line{ pos = 593.0      spacing = 2.3}
+#IF $M3D         line{ pos = 597.6666666666666 spacing = 2.3}
+#IF $M3D         line{ pos = 600.0      spacing = 2.0}
+#IF $M3D         line{ pos = 602.0      spacing = 2.0}
+#IF $M3D         line{ pos = 604.2      spacing = 2.2}
+#IF $M3D         line{ pos = 610.8      spacing = 2.2}
+#IF $M3D         line{ pos = 613.0      spacing = 2.0}
+#IF $M3D         line{ pos = 625.0      spacing = 2.0}
+#IF $M3D         line{ pos = 629.0      spacing = 4.0}
+#IF $M3D         line{ pos = 641.0      spacing = 4.0}
+#IF $M3D         line{ pos = 645.0      spacing = 2.0}
+#IF $M3D         line{ pos = 651.0      spacing = 2.0}
+#IF $M3D         line{ pos = 653.0      spacing = 1.0}
+#IF $M3D         line{ pos = 654        spacing = 1.0}
+#IF $M3D         line{ pos = 658.6      spacing = 4.6}
+#IF $M3D         line{ pos = 672.4      spacing = 4.6}
+#IF $M3D         line{ pos = 677.0      spacing = 2.5}
+#IF $M3D         line{ pos = 679.5      spacing = 2.5}
+#IF $M3D         line{ pos = 682.0      spacing = 2.0}
+#IF $M3D         line{ pos = 690.0      spacing = 2.0}
+#IF $M3D         line{ pos = 692.0      spacing = 1.0}
+#IF $M3D         line{ pos = 693        spacing = 1.0}
+#IF $M3D         line{ pos = 695.0      spacing = 2.0}
+#IF $M3D         line{ pos = 714.0      spacing = 2.0}
+#IF $M3D         line{ pos = 716.2      spacing = 2.2}
+#IF $M3D         line{ pos = 722.8      spacing = 2.2}
+#IF $M3D         line{ pos = 725.0      spacing = 2.0}
+#IF $M3D         line{ pos = 731.0      spacing = 2.0}
+#IF $M3D         line{ pos = 733.5      spacing = 2.5}
+#IF $M3D         line{ pos = 736.0      spacing = 2.0}
+#IF $M3D         line{ pos = 738.0      spacing = 2.0}
+#IF $M3D         line{ pos = 743.2      spacing = 5.2}
+#IF $M3D         line{ pos = 758.8      spacing = 5.2}
+#IF $M3D         line{ pos = 764.0      spacing = 2.0}
+#IF $M3D         line{ pos = 785.0      spacing = 2.0}
+#IF $M3D         line{ pos = 787.25     spacing = 2.2}
+#IF $M3D         line{ pos = 802.8      spacing = 2.2}
+#IF $M3D         line{ pos = 805.0      spacing = 2.0}
+#IF $M3D         line{ pos = 811.0      spacing = 2.0}
+#IF $M3D         line{ pos = 814.0      spacing = 3.0}
+#IF $M3D         line{ pos = 817.8      spacing = 3.8}
+#IF $M3D         line{ pos = 829.2      spacing = 3.8}
+#IF $M3D         line{ pos = 833.0      spacing = 2.0}
+#IF $M3D         line{ pos = 837.0      spacing = 2.0}
+#IF $M3D         line{ pos = 839.3333333333334 spacing = 2.3}
+#IF $M3D         line{ pos = 841.6666666666666 spacing = 2.3}
+#IF $M3D         line{ pos = 844.0      spacing = 2.0}
+#IF $M3D         line{ pos = 852.0      spacing = 2.0}
+#IF $M3D         line{ pos = 854.8      spacing = 2.8}
+#IF $M3D         line{ pos = 863.2      spacing = 2.8}
+#IF $M3D         line{ pos = 866.0      spacing = 2.0}
+#IF $M3D         line{ pos = 870.0      spacing = 2.0}
+#IF $M3D         line{ pos = 873.4      spacing = 3.4}
+#IF $M3D         line{ pos = 883.6      spacing = 3.4}
+#IF $M3D         line{ pos = 887.0      spacing = 2.0}
+#IF $M3D         line{ pos = 889.0      spacing = 2.0}
+#IF $M3D         line{ pos = 891.25     spacing = 2.2}
+#IF $M3D         line{ pos = 898.0      spacing = 2.2}
+#IF $M3D         line{ pos = 901.0      spacing = 3.0}
+#IF $M3D         line{ pos = 910.0      spacing = 3.0}
+#IF $M3D         line{ pos = 913.0      spacing = 2.3}
+#IF $M3D         line{ pos = 917.6666666666666 spacing = 2.3}
+#IF $M3D         line{ pos = 920.0      spacing = 2.0}
+#IF $M3D         line{ pos = 928.0      spacing = 2.0}
+#IF $M3D         line{ pos = 930.2      spacing = 2.2}
+#IF $M3D         line{ pos = 936.8      spacing = 2.2}
+#IF $M3D         line{ pos = 939.0      spacing = 2.0}
+#IF $M3D         line{ pos = 945.0      spacing = 2.0}
+#IF $M3D         line{ pos = 947.5      spacing = 2.5}
+#IF $M3D         line{ pos = 950.0      spacing = 2.5}
+#IF $M3D         line{ pos = 953.4      spacing = 3.4}
+#IF $M3D         line{ pos = 963.6      spacing = 3.4}
+#IF $M3D         line{ pos = 967.0      spacing = 2.3}
+#IF $M3D         line{ pos = 971.6666666666666 spacing = 2.3}
+#IF $M3D         line{ pos = 974.0      spacing = 2.0}
+#IF $M3D         line{ pos = 982.0      spacing = 2.0}
+#IF $M3D         line{ pos = 1314.0     spacing = 83.0}
+#IF $M3D         line{ pos = $x_max             spacing = $GRID_x_Junc }
+#IF $M3D      }
+
+
+#IF $M3D      ygrid{
+#IF $M3D         line{ pos = $y_min             spacing = $GRID_y_Junc }
+#IF $M3D         line{ pos = 2.2        spacing = 30}
+#IF $M3D         line{ pos = 106.5      spacing = 30}
+#IF $M3D         line{ pos = 205.6      spacing = 30}
+#IF $M3D         line{ pos = 243.4      spacing = 15}
+#IF $M3D         line{ pos = 256.0      spacing = 2.0}
+#IF $M3D         line{ pos = 264.0      spacing = 2.0}
+#IF $M3D         line{ pos = 268.8      spacing = 4.8}
+#IF $M3D         line{ pos = 283.2      spacing = 4.8}
+#IF $M3D         line{ pos = 288.0      spacing = 2.0}
+#IF $M3D         line{ pos = 292.0      spacing = 2.0}
+#IF $M3D         line{ pos = 295.0      spacing = 3.0}
+#IF $M3D         line{ pos = 300.6      spacing = 5.6}
+#IF $M3D         line{ pos = 317.4      spacing = 5.6}
+#IF $M3D         line{ pos = 323.0      spacing = 2.0}
+#IF $M3D         line{ pos = 329.0      spacing = 2.0}
+#IF $M3D         line{ pos = 331.5      spacing = 2.5}
+#IF $M3D         line{ pos = 334.0      spacing = 2.5}
+#IF $M3D         line{ pos = 339.2      spacing = 5.2}
+#IF $M3D         line{ pos = 354.8      spacing = 5.2}
+#IF $M3D         line{ pos = 360.0      spacing = 2.0}
+#IF $M3D         line{ pos = 368.0      spacing = 2.0}
+#IF $M3D         line{ pos = 372.4      spacing = 4.4}
+#IF $M3D         line{ pos = 385.6      spacing = 4.4}
+#IF $M3D         line{ pos = 390.0      spacing = 2.0}
+#IF $M3D         line{ pos = 394.0      spacing = 2.0}
+#IF $M3D         line{ pos = 397.8      spacing = 3.8}
+#IF $M3D         line{ pos = 409.2      spacing = 3.8}
+#IF $M3D         line{ pos = 413.0      spacing = 3.0}
+#IF $M3D         line{ pos = 416.0      spacing = 2.0}
+#IF $M3D         line{ pos = 418.0      spacing = 2.0}
+#IF $M3D         line{ pos = 424.4      spacing = 6.4}
+#IF $M3D         line{ pos = 443.6      spacing = 6.4}
+#IF $M3D         line{ pos = 450.0      spacing = 2.0}
+#IF $M3D         line{ pos = 452.0      spacing = 1.0}
+#IF $M3D         line{ pos = 453        spacing = 1.0}
+#IF $M3D         line{ pos = 455.0      spacing = 2.0}
+#IF $M3D         line{ pos = 463.0      spacing = 2.0}
+#IF $M3D         line{ pos = 484.2      spacing = 2.0}
+#IF $M3D         line{ pos = 547.8      spacing = 2.0}
+#IF $M3D         line{ pos = 569.0      spacing = 2.0}
+#IF $M3D         line{ pos = 571.0      spacing = 2.0}
+#IF $M3D         line{ pos = 575.4      spacing = 4.4}
+#IF $M3D         line{ pos = 593.0      spacing = 4.4}
+#IF $M3D         line{ pos = 605.0      spacing = 12.0}
+#IF $M3D         line{ pos = 641.0      spacing = 12.0}
+#IF $M3D         line{ pos = 653.0      spacing = 4.4}
+#IF $M3D         line{ pos = 675.0      spacing = 4.4}
+#IF $M3D         line{ pos = 696.6      spacing = 2.0}
+#IF $M3D         line{ pos = 761.4      spacing = 2.0}
+#IF $M3D         line{ pos = 783.0      spacing = 3.0}
+#IF $M3D         line{ pos = 786.0      spacing = 2.0}
+#IF $M3D         line{ pos = 790.0      spacing = 2.0}
+#IF $M3D         line{ pos = 792.2      spacing = 2.2}
+#IF $M3D         line{ pos = 801.0      spacing = 2.2}
+#IF $M3D         line{ pos = 809.2      spacing = 8.2}
+#IF $M3D         line{ pos = 833.8      spacing = 8.2}
+#IF $M3D         line{ pos = 842.0      spacing = 2.0}
+#IF $M3D         line{ pos = 844.0      spacing = 2.0}
+#IF $M3D         line{ pos = 853.8      spacing = 9.8}
+#IF $M3D         line{ pos = 883.2      spacing = 9.8}
+#IF $M3D         line{ pos = 893.0      spacing = 1.0}
+#IF $M3D         line{ pos = 894        spacing = 1.0}
+#IF $M3D         line{ pos = 906.0      spacing = 12.0}
+#IF $M3D         line{ pos = 942.0      spacing = 12.0}
+#IF $M3D         line{ pos = 954.0      spacing = 4.4}
+#IF $M3D         line{ pos = 971.6      spacing = 4.4}
+#IF $M3D         line{ pos = 976.0      spacing = 3.8}
+#IF $M3D         line{ pos = 991.2      spacing = 3.8}
+#IF $M3D         line{ pos = 995.0      spacing = 2.0}
+#IF $M3D         line{ pos = 1010.0     spacing = 2.0}
+#IF $M3D         line{ pos = 1012.3333333333334 spacing = 2.3}
+#IF $M3D         line{ pos = 1014.6666666666666 spacing = 2.3}
+#IF $M3D         line{ pos = 1017.0     spacing = 2.0}
+#IF $M3D         line{ pos = 1023.0     spacing = 2.0}
+#IF $M3D         line{ pos = 1025.0     spacing = 1.0}
+#IF $M3D         line{ pos = 1026       spacing = 1.0}
+#IF $M3D         line{ pos = 1028.0     spacing = 2.0}
+#IF $M3D         line{ pos = 1038.0     spacing = 2.0}
+#IF $M3D         line{ pos = 1040.0     spacing = 1.0}
+#IF $M3D         line{ pos = 1041       spacing = 1.0}
+#IF $M3D         line{ pos = 1043.0     spacing = 2.0}
+#IF $M3D         line{ pos = 1045.0     spacing = 2.0}
+#IF $M3D         line{ pos = 1079.2     spacing = 30}
+#IF $M3D         line{ pos = 1181.8     spacing = 30}
+#IF $M3D         line{ pos = 1216.0     spacing = 30}
+#IF $M3D         line{ pos = 1229.6     spacing = 30}
+#IF $M3D         line{ pos = $y_max             spacing = $GRID_y_Junc }
+#IF $M3D      }
+
+
+   xgrid{
+      line{ pos = $START_Si_SUBSTRATE                         				           spacing = $GRID_z_AIR} 
+      line{ pos = $START_SiGe_Graded_BUFFER                				                 spacing = $GRID_z_SUB} 
+      line{ pos = $START_SiGe_BUFFER                				                       spacing = $GRID_z_SUB} 
+      line{ pos = $START_SiGe_BUFFER+9*$THICK_SiGe_BUFFER/10          				     spacing = $GRID_z_AIR } 
+      line{ pos = $START_B_SiGe			                                               spacing = $GRID_z_2DEG }
+      line{ pos = $START_SiGe_SPACER			                                         spacing = $GRID_z_2DEG }
+      line{ pos = $START_SiGe_SPACER+$THICK_SiGe_SPACER/10          		                 spacing = $GRID_z_SPACER}
+      line{ pos = $START_SiGe_SPACER+9*$THICK_SiGe_SPACER/10          		                 spacing = $GRID_z_SPACER}
+      line{ pos = $START_Ge_QW			                                                spacing = $GRID_z_2DEG }
+      line{ pos = $START_SiGe_CAP            			                                   spacing = $GRID_z_2DEG }
+      line{ pos = $START_SiGe_CAP + $THICK_SiGe_CAP/10      			                 spacing = $GRID_z_SPACER}
+      line{ pos = $START_SiGe_CAP + 9*$THICK_SiGe_CAP/10      			                 spacing = $GRID_z_SPACER}
+      line{ pos = $START_Ge_CAP                                                                spacing = $GRID_z_CAP } 
+      line{ pos = $START_AlOx_INSU                    				                 spacing = $GRID_z_2DEG } 
+      line{ pos = $START_AlOx_INSU+10                    				                 spacing = $GRID_z_2DEG } 
+      line{ pos = $START_AuTi_GATE 				                                         spacing = $GRID_z_2DEG } 
+      line{ pos = $START_AuTi_GATE +2*$THICK_AuTi_GATE+$THICK_AlOx_INSU 		            spacing = $GRID_z_GATE }
+      line{ pos = $START_AuTi_GATE +$THICK_AuTi_GATE+$THICK_Air_DIELEC/2  		           spacing = $GRID_z_AIR }
+      line{ pos = $START_AuTi_GATE +$THICK_Air_DIELEC+$ExpendGridPoints*$GRID_z_AIR            spacing = $GRID_z_AIR }
+
+   }
+}
+
+
+structure{
+#IF $FullOutput   	output_region_index{ boxes = no } # Whether out the region, material and alloy composition or not
+#IF $FullOutput      	output_material_index{ boxes = no }
+#IF $FullOutput      	output_alloy_composition{ boxes = no }
+#IF $FullOutput      	output_impurities{}
+#--------------------------------------------------------------------------------------------------------------
+   	region{
+      	everywhere{}
+      	binary{ name = "Air" }
+#      	contact{ name = "dummy" }
+   	}
+
+#--------------------------------------------------------------------------------------------------------------
+   region{# Si Substrate
+      !IF($M3D) 
+         cuboid{ 
+            z = [$x_min , $x_max]
+            y = [$y_min , $y_max]
+      !ELSE
+         line{
+      !ENDIF
+      
+
+
+         x = [$START_Si_SUBSTRATE, $START_Ge_BUFFER]
+      }
+      binary{ name = "Si" }
+
+   }
+#--------------------------------------------------------------------------------------------------------------
+
+   region{# Ge Buffer 
+      !IF($M3D) 
+         cuboid{ 
+            z = [$x_min , $x_max]
+            y = [$y_min , $y_max]
+      !ELSE
+         line{
+      !ENDIF
+         x = [$START_Ge_BUFFER, $START_SiGe_Graded_BUFFER]
+      }
+      binary{ name = "Ge" }
+
+   }
+#--------------------------------------------------------------------------------------------------------------
+   region{# SiGe Buffer Linear Graded
+      !IF($M3D) 
+         cuboid{ 
+            z = [$x_min , $x_max]
+            y = [$y_min , $y_max]
+      !ELSE
+         line{
+      !ENDIF
+
+
+         x = [$START_SiGe_Graded_BUFFER, $START_SiGe_BUFFER]
+      }
+      ternary_linear{
+        name    = "Si(1-x)Ge(x)"        # ternary material name for this region with linear alloy profile
+        alloy_x = [1.0, 0.85]               # start and end value of x content (minimum value is 0.0, maximum value is 1.0)
+
+#IF $M3D  z       = [0, 0]                  # x coordinates of start and end point [nm]
+#IF $M3D  y       = [0, 0]                  # y coordinates of start and end point [nm] (2D or 3D only)
+        x       = [$START_SiGe_Graded_BUFFER, $START_SiGe_BUFFER]      # z coordinates of start and end point [nm] (3D only)
+                                          # This defines an alloy profile, which varies linearly along the line from the point (0,0,z1) to the point (0,0,z2)
+                                          # and stays constant in the perpendicular planes.
+      }
+}
+#--------------------------------------------------------------------------------------------------------------
+
+   region{# SiGe Buffer Constant
+      !IF($M3D) 
+         cuboid{ 
+            z = [$x_min , $x_max]
+            y = [$y_min , $y_max]
+      !ELSE
+         line{
+      !ENDIF
+         x = [$START_SiGe_BUFFER, $START_B_SiGe]
+      }
+      ternary_constant{
+        name    = "Si(1-x)Ge(x)"        # ternary material name for this region with constant alloy profile
+        alloy_x = 0.85               # x content of the alloy (minimum value is 0.0, maximum value is 1.0)
+      }
+
+
+   }
+
+   region{# SiGe B doped
+      !IF($M3D) 
+         cuboid{ 
+            z = [$x_min , $x_max]
+            y = [$y_min , $y_max]
+      !ELSE
+         line{
+      !ENDIF
+         x = [$START_B_SiGe, $START_SiGe_SPACER]
+      }
+      ternary_constant{
+        name    = "Si(1-x)Ge(x)"        # ternary material name for this region with constant alloy profile
+        alloy_x = 0.85               # x content of the alloy (minimum value is 0.0, maximum value is 1.0)
+      }
+      doping{
+         constant{
+            name = "B"                 # name of impurity
+            conc = $B_Doping           # doping concentration [cm-3] 
+            add  = yes                  # (optional) yes or no (default = yes)
+            }
+
+      }
+
+
+   }
+
+   region{# SiGe Spacer
+      !IF($M3D) 
+         cuboid{ 
+            z = [$x_min , $x_max]
+            y = [$y_min , $y_max]
+      !ELSE
+         line{
+      !ENDIF
+         x = [$START_SiGe_SPACER, $START_Ge_QW]
+      }
+      ternary_constant{
+        name    = "Si(1-x)Ge(x)"        # ternary material name for this region with constant alloy profile
+        alloy_x = 0.85               # x content of the alloy (minimum value is 0.0, maximum value is 1.0)
+      }
+
+
+   }
+
+#--------------------------------------------------------------------------------------------------------------
+   region{# Ge 2DEG
+      !IF($M3D) 
+         cuboid{ 
+            z = [$x_min , $x_max]
+            y = [$y_min , $y_max]
+      !ELSE
+         line{
+      !ENDIF
+         x = [$START_Ge_QW, $START_SiGe_CAP]
+      }
+#IF $TwoDEGBulkBCFlag      contact{
+#IF $TwoDEGBulkBCFlag      name = "2DEG_Bulk"
+#IF $TwoDEGBulkBCFlag      }
+#IF $M1D         integrate{                                
+#IF $M1D           electron_density{}                
+#IF $M1D           hole_density{}   
+#IF $M1D         }
+      binary{
+        name    = "Ge"  # ternary material name for this region with constant alloy profile
+      }
+
+
+   }
+
+
+#IF $M3D   region{# InGaAs 2DEG density region
+#IF $M3D         
+#IF $M3D         cuboid{ 
+#IF $M3D            z = [($x_min+$x_max)/2 - $HalfMesuSize , ($x_min+$x_max)/2 + $HalfMesuSize ]
+#IF $M3D            y = [($y_min+$y_max)/2 - $HalfMesuSize , ($y_min+$y_max)/2 + $HalfMesuSize ]
+#IF $M3D            x = [$START_Ge_QW, $START_SiGe_CAP]
+#IF $M3D         }
+#IF $M3D         integrate{                                
+#IF $M3D           electron_density{}                
+#IF $M3D           hole_density{}   
+#IF $M3D         }
+#IF $M3D         binary{
+#IF $M3D           name    = "Ge"  # ternary material name for this region with constant alloy profile
+#IF $M3D         }
+#IF $M3D      }
+
+#--------------------------------------------------------------------------------------------------------------
+   region{# SiGe CAP
+      !IF($M3D) 
+         cuboid{ 
+            z = [$x_min , $x_max]
+            y = [$y_min , $y_max]
+      !ELSE
+         line{
+      !ENDIF
+         x = [$START_SiGe_CAP, $START_Ge_CAP]
+      }
+      ternary_constant{
+        name    = "Si(1-x)Ge(x)"        # ternary material name for this region with constant alloy profile
+        alloy_x = 0.85               
+      }
+#IF $BKD      doping{
+#IF $BKD      constant{
+#IF $BKD      name = "BKI"
+#IF $BKD      conc = $BK_Doping
+#IF $BKD      add = yes
+#IF $BKD      }
+#IF $BKD      }
+
+   }
+
+
+
+
+#--------------------------------------------------------------------------------------------------------------
+   region{# Ge CAP
+      !IF($M3D) 
+         cuboid{ 
+            z = [$x_min , $x_max]
+            y = [$y_min , $y_max]
+      !ELSE
+         line{
+      !ENDIF
+         x = [$START_Ge_CAP, $START_AlOx_INSU]
+      }
+      binary{
+        name    = "Ge"  # ternary material name for this region with constant alloy profile
+      }
+#IF $CapBCFlag contact{name = "Cap_Bulk"}
+      }
+
+
+
+#--------------------------------------------------------------------------------------------------------------
+
+region{# InGaAs Surface Charge
+      !IF($M3D) 
+         cuboid{ 
+            z = [$x_min , $x_max]
+            y = [$y_min , $y_max]
+      !ELSE
+         line{
+      !ENDIF
+         x = [$START_AlOx_INSU-$SurfaceChargeD, $START_AlOx_INSU]
+      }
+      binary{
+        name    = "Ge"  # ternary material name for this region with constant alloy profile
+
+      }
+#IF $SurfaceCharge doping{
+#IF $SurfaceCharge          constant{
+#IF $SurfaceCharge             name = "SurfaceCharge"                 # name of impurity
+#IF $SurfaceCharge             conc = $SurfaceDensity           # doping concentration [cm-3] 
+#IF $SurfaceCharge             }
+#IF $SurfaceCharge       }
+
+   }
+
+
+##--------------------------------------------------------------------------------------------------------------
+#
+   region{# SiOx
+      !IF($M3D) 
+         cuboid{ 
+            z = [$x_min , $x_max]
+            y = [$y_min , $y_max]
+      !ELSE
+         line{
+      !ENDIF
+      x = [$START_AlOx_INSU, $START_AuTi_GATE ]
+      }
+      binary{ name = "Al2O3_zb" }
+#IF $InsuBulkBCFlag      contact{name = "Insu_Bulk"}
+   }
+
+
+#--------------------------------------------------------------------------------------------------------------
+#IF $M3D region{# SurfaceWhereNoGate
+
+#IF $M3D          cuboid{ 
+#IF $M3D             z = [$x_min , $x_max]
+#IF $M3D             y = [$y_min , $y_max]
+#IF $M3D             x = [$START_AuTi_GATE , $START_AuTi_GATE +$THICK_AuTi_GATE ]
+#IF $M3D       }
+#IF $M3D       binary{ name = "Al2O3_zb" }
+#IF $M3D #IF $TopNoGateBCFlag         contact{name = "SurfaceWhereNoGate"}
+#IF $M3D }
+
+   region{# SurfaceWhereNoGate
+      !IF($M3D) 
+         cuboid{ 
+            z = [$x_min , $x_max]
+            y = [$y_min , $y_max]
+      !ELSE
+         line{
+      !ENDIF
+      x = [$START_AuTi_GATE +$THICK_AuTi_GATE , $START_AuTi_GATE +$THICK_Air_DIELEC]
+      }
+      binary{ name = "Air" }
+      contact{name = "Air"}
+
+}
+   region{# SurfaceWhereNoGate
+      !IF($M3D) 
+         cuboid{ 
+            z = [$x_min , $x_max]
+            y = [$y_min , $y_max]
+      !ELSE
+         line{
+      !ENDIF
+      x = [ $START_AuTi_GATE +$THICK_Air_DIELEC, $START_AuTi_GATE +$THICK_Air_DIELEC+$ExpendGridPoints*$GRID_z_AIR       ]
+      }
+      binary{ name = "Air" }
+#IF $AirBCFlag      contact{name = "AirTop"}
+
+}
+
+   region{# SurfaceWhereNoGate
+      !IF($M3D) 
+         cuboid{ 
+            z = [$x_min , $x_max]
+            y = [$y_min , $y_max]
+      !ELSE
+         line{
+      !ENDIF
+      x = [ $START_AuTi_GATE +$THICK_AuTi_GATE , $START_AuTi_GATE +$THICK_AuTi_GATE +$THICK_AlOx_INSU]
+      }
+      binary{ name = "Al2O3_zb" }
+
+
+}
+
+   region{# Top Gate
+      !IF($M3D) 
+         cuboid{ 
+            z = [$x_min , $x_max]
+            y = [$y_min , $y_max]
+      !ELSE
+         line{
+      !ENDIF
+      x = [$START_AuTi_GATE +$THICK_AuTi_GATE +$THICK_AlOx_INSU,$START_AuTi_GATE +$THICK_AuTi_GATE +$THICK_AlOx_INSU+$THICK_AuTi_GATE]
+      }
+      binary{ name = "Si" }
+#IF $GateBCFlag      contact{name = "Gate7"}
+
+
+}
+
+
+   region{# Gate
+#IF $M1D          line{
+#IF $M1D               x = [$START_AuTi_GATE , $START_AuTi_GATE +$THICK_AuTi_GATE]
+#IF $M1D             }
+
+
+#IF $M3D polygonal_prism{                        
+#IF $M3D          x = [$START_AuTi_GATE , $START_AuTi_GATE +$THICK_AuTi_GATE]
+#IF $M3D vertex{ z = 844 y = 1038 }
+#IF $M3D vertex{ z = 837 y = 1043 }
+#IF $M3D vertex{ z = 837 y = 1233 }
+#IF $M3D vertex{ z = 870 y = 1233 }
+#IF $M3D vertex{ z = 870 y = 1041 }
+#IF $M3D vertex{ z = 866 y = 1038 }
+#IF $M3D }
+
+#IF $M3D polygonal_prism{                        
+#IF $M3D          x = [$START_AuTi_GATE , $START_AuTi_GATE +$THICK_AuTi_GATE]
+#IF $M3D vertex{ z = 625 y = 1038 }
+#IF $M3D vertex{ z = 621 y = 1041 }
+#IF $M3D vertex{ z = 619 y = 1233 }
+#IF $M3D vertex{ z = 654 y = 1233 }
+#IF $M3D vertex{ z = 653 y = 1216 }
+#IF $M3D vertex{ z = 654 y = 1045 }
+#IF $M3D vertex{ z = 649 y = 1038 }
+#IF $M3D }
+
+         binary{ name = "Si" }
+#IF $GateBCFlag      contact{name = "Gate1"}
+}
+#IF $M3D    region{# Gate
+
+#IF $M3D polygonal_prism{                        
+#IF $M3D          x = [$START_AuTi_GATE , $START_AuTi_GATE +$THICK_AuTi_GATE]
+#IF $M3D vertex{ z = 736 y = 997 }
+#IF $M3D vertex{ z = 714 y = 1008 }
+#IF $M3D vertex{ z = 705 y = 1017 }
+#IF $M3D vertex{ z = 697 y = 1034 }
+#IF $M3D vertex{ z = 697 y = 1233 }
+#IF $M3D vertex{ z = 794 y = 1233 }
+#IF $M3D vertex{ z = 794 y = 1034 }
+#IF $M3D vertex{ z = 779 y = 1010 }
+#IF $M3D vertex{ z = 766 y = 1000 }
+#IF $M3D }
+#IF $M3D         binary{ name = "Si" }
+#IF $M3D #IF $GateBCFlag      contact{name = "Gate2"}
+#IF $M3D }
+#IF $M3D    region{# Gate
+
+#IF $M3D polygonal_prism{                        
+#IF $M3D          x = [$START_AuTi_GATE , $START_AuTi_GATE +$THICK_AuTi_GATE]
+#IF $M3D vertex{ z = 889 y = 783 }
+#IF $M3D vertex{ z = 887 y = 788 }
+#IF $M3D vertex{ z = 928 y = 842 }
+#IF $M3D vertex{ z = 945 y = 894 }
+#IF $M3D vertex{ z = 941 y = 976 }
+#IF $M3D vertex{ z = 924 y = 1026 }
+#IF $M3D vertex{ z = 913 y = 1038 }
+#IF $M3D vertex{ z = 913 y = 1233 }
+#IF $M3D vertex{ z = 950 y = 1233 }
+#IF $M3D vertex{ z = 950 y = 1040 }
+#IF $M3D vertex{ z = 974 y = 995 }
+#IF $M3D vertex{ z = 982 y = 954 }
+#IF $M3D vertex{ z = 982 y = 893 }
+#IF $M3D vertex{ z = 967 y = 844 }
+#IF $M3D vertex{ z = 939 y = 801 }
+#IF $M3D vertex{ z = 920 y = 783 }
+#IF $M3D }
+
+#IF $M3D polygonal_prism{                        
+#IF $M3D          x = [$START_AuTi_GATE , $START_AuTi_GATE +$THICK_AuTi_GATE]
+#IF $M3D vertex{ z = 600 y = 783 }
+#IF $M3D vertex{ z = 571 y = 783 }
+#IF $M3D vertex{ z = 552 y = 801 }
+#IF $M3D vertex{ z = 524 y = 844 }
+#IF $M3D vertex{ z = 509 y = 893 }
+#IF $M3D vertex{ z = 513 y = 976 }
+#IF $M3D vertex{ z = 528 y = 1026 }
+#IF $M3D vertex{ z = 541 y = 1040 }
+#IF $M3D vertex{ z = 541 y = 1233 }
+#IF $M3D vertex{ z = 578 y = 1233 }
+#IF $M3D vertex{ z = 578 y = 1040 }
+#IF $M3D vertex{ z = 565 y = 1025 }
+#IF $M3D vertex{ z = 550 y = 976 }
+#IF $M3D vertex{ z = 546 y = 894 }
+#IF $M3D vertex{ z = 561 y = 844 }
+#IF $M3D vertex{ z = 602 y = 788 }
+#IF $M3D }
+#IF $M3D          binary{ name = "Si" }
+#IF $M3D #IF $GateBCFlag      contact{name = "Gate3"}
+#IF $M3D }
+#IF $M3D    region{# Gate
+
+#IF $M3D polygonal_prism{                        
+#IF $M3D          x = [$START_AuTi_GATE , $START_AuTi_GATE +$THICK_AuTi_GATE]
+#IF $M3D vertex{ z = 0 y = 571 }
+#IF $M3D vertex{ z = 0 y = 675 }
+#IF $M3D vertex{ z = 725 y = 653 }
+#IF $M3D vertex{ z = 731 y = 790 }
+#IF $M3D vertex{ z = 764 y = 786 }
+#IF $M3D vertex{ z = 766 y = 653 }
+#IF $M3D vertex{ z = 1397 y = 675 }
+#IF $M3D vertex{ z = 1397 y = 569 }
+#IF $M3D vertex{ z = 686 y = 593 }
+#IF $M3D vertex{ z = 682 y = 455 }
+#IF $M3D vertex{ z = 647 y = 459 }
+#IF $M3D vertex{ z = 645 y = 593 }
+#IF $M3D }
+ #IF $M3D         binary{ name = "Si" }
+#IF $M3D #IF $GateBCFlag      contact{name = "Gate4"}
+#IF $M3D }
+
+#IF $M3D    region{# Gate
+
+#IF $M3D polygonal_prism{                        
+#IF $M3D          x = [$START_AuTi_GATE , $START_AuTi_GATE +$THICK_AuTi_GATE]
+#IF $M3D vertex{ z = 974 y = 0 }
+#IF $M3D vertex{ z = 898 y = 0 }
+#IF $M3D vertex{ z = 738 y = 256 }
+#IF $M3D vertex{ z = 738 y = 292 }
+#IF $M3D vertex{ z = 770 y = 323 }
+#IF $M3D vertex{ z = 785 y = 360 }
+#IF $M3D vertex{ z = 785 y = 413 }
+#IF $M3D vertex{ z = 768 y = 452 }
+#IF $M3D vertex{ z = 773 y = 463 }
+#IF $M3D vertex{ z = 811 y = 450 }
+#IF $M3D vertex{ z = 833 y = 416 }
+#IF $M3D vertex{ z = 837 y = 394 }
+#IF $M3D vertex{ z = 814 y = 364 }
+#IF $M3D vertex{ z = 805 y = 334 }
+#IF $M3D vertex{ z = 852 y = 193 }
+#IF $M3D }
+
+#IF $M3D polygonal_prism{                        
+#IF $M3D          x = [$START_AuTi_GATE , $START_AuTi_GATE +$THICK_AuTi_GATE]
+#IF $M3D vertex{ z = 357 y = 0 }
+#IF $M3D vertex{ z = 476 y = 189 }
+#IF $M3D vertex{ z = 520 y = 329 }
+#IF $M3D vertex{ z = 513 y = 368 }
+#IF $M3D vertex{ z = 494 y = 390 }
+#IF $M3D vertex{ z = 494 y = 418 }
+#IF $M3D vertex{ z = 519 y = 450 }
+#IF $M3D vertex{ z = 558 y = 463 }
+#IF $M3D vertex{ z = 561 y = 453 }
+#IF $M3D vertex{ z = 543 y = 413 }
+#IF $M3D vertex{ z = 543 y = 368 }
+#IF $M3D vertex{ z = 558 y = 327 }
+#IF $M3D vertex{ z = 593 y = 290 }
+#IF $M3D vertex{ z = 593 y = 264 }
+#IF $M3D vertex{ z = 550 y = 184 }
+#IF $M3D vertex{ z = 429 y = 0 }
+#IF $M3D }
+#IF $M3D          binary{ name = "Si" }
+#IF $M3D #IF $GateBCFlag      contact{name = "Gate5"}
+#IF $M3D }
+
+#IF $M3D    region{# Gate
+
+#IF $M3D polygonal_prism{                        
+#IF $M3D          x = [$START_AuTi_GATE , $START_AuTi_GATE +$THICK_AuTi_GATE]
+#IF $M3D vertex{ z = 794 y = 0 }
+#IF $M3D vertex{ z = 708 y = 0 }
+#IF $M3D vertex{ z = 703 y = 11 }
+#IF $M3D vertex{ z = 701 y = 35 }
+#IF $M3D vertex{ z = 692 y = 52 }
+#IF $M3D vertex{ z = 693 y = 61 }
+#IF $M3D vertex{ z = 677 y = 109 }
+#IF $M3D vertex{ z = 677 y = 290 }
+#IF $M3D vertex{ z = 682 y = 295 }
+#IF $M3D vertex{ z = 710 y = 295 }
+#IF $M3D vertex{ z = 714 y = 292 }
+#IF $M3D vertex{ z = 714 y = 120 }
+#IF $M3D vertex{ z = 764 y = 117 }
+#IF $M3D }
+
+#IF $M3D polygonal_prism{                        
+#IF $M3D          x = [$START_AuTi_GATE , $START_AuTi_GATE +$THICK_AuTi_GATE]
+#IF $M3D vertex{ z = 532 y = 0 }
+#IF $M3D vertex{ z = 552 y = 59 }
+#IF $M3D vertex{ z = 563 y = 117 }
+#IF $M3D vertex{ z = 613 y = 119 }
+#IF $M3D vertex{ z = 617 y = 122 }
+#IF $M3D vertex{ z = 615 y = 288 }
+#IF $M3D vertex{ z = 621 y = 295 }
+#IF $M3D vertex{ z = 645 y = 295 }
+#IF $M3D vertex{ z = 649 y = 292 }
+#IF $M3D vertex{ z = 649 y = 104 }
+#IF $M3D vertex{ z = 619 y = 0 }
+#IF $M3D }
+
+
+
+#IF $M3D          binary{ name = "Si" }
+#IF $M3D #IF $GateBCFlag      contact{name = "Gate6"}
+#IF $M3D    }
+#--------------------------------------------------------------------------------------------------------------
+#           Regions defined for BC #IF $TwoDEGBCFlag   
+#--------------------------------------------------------------------------------------------------------------
+#IF $TwoDEGBCFlag      region{#2DEG F_BC
+#IF $TwoDEGBCFlag         !IF($M3D) 
+#IF $TwoDEGBCFlag            cuboid{ 
+#IF $TwoDEGBCFlag               z = [$x_min , $x_max]
+#IF $TwoDEGBCFlag               y = [$y_min, 0]
+#IF $TwoDEGBCFlag         !ELSE
+#IF $TwoDEGBCFlag            line{
+#IF $TwoDEGBCFlag         !ENDIF
+#IF $TwoDEGBCFlag               x = [$START_Ge_QW, $START_SiGe_CAP]
+#IF $TwoDEGBCFlag            }     
+#IF $TwoDEGBCFlag         binary_constant{
+#IF $TwoDEGBCFlag            name    = "Ge"   
+#IF $TwoDEGBCFlag         } 
+#IF $TwoDEGBCFlag         contact{
+#IF $TwoDEGBCFlag            name = "2DEG_F_BC"
+#IF $TwoDEGBCFlag         }
+#IF $TwoDEGBCFlag      }
+
+#IF $TwoDEGBCFlag      region{#2DEG B_BC
+#IF $TwoDEGBCFlag         !IF($M3D) 
+#IF $TwoDEGBCFlag            cuboid{ 
+#IF $TwoDEGBCFlag               z = [$x_min , $x_max]
+#IF $TwoDEGBCFlag               y = [$y_Junc, $y_max] 
+#IF $TwoDEGBCFlag         !ELSE
+#IF $TwoDEGBCFlag            line{
+#IF $TwoDEGBCFlag         !ENDIF
+#IF $TwoDEGBCFlag               x = [$START_Ge_QW, $START_SiGe_CAP]
+#IF $TwoDEGBCFlag            }     
+#IF $TwoDEGBCFlag         binary_constant{
+#IF $TwoDEGBCFlag            name    = "Ge"   
+#IF $TwoDEGBCFlag         } 
+#IF $TwoDEGBCFlag         contact{
+#IF $TwoDEGBCFlag            name = "2DEG_B_BC"
+#IF $TwoDEGBCFlag         }
+#IF $TwoDEGBCFlag      }
+
+   }
+contacts{
+
+#--------------------------------------------------------------------------------------------------------------
+#                                            GATE 1
+#--------------------------------------------------------------------------------------------------------------
+#IF $SchottyGate   schottky{
+#IF $SchottyGate     name = "Gate1" 
+
+!IF($InSwp)
+   #IF $SchottyGate     bias  = [$Bias_Gate_min,$Bias_Gate_max]  # start and end bias in [V]
+   #IF $SchottyGate     steps = $Bias_Gate_step          # (optional) number of voltage sweep
+!ELSE
+   #IF $SchottyGate     bias  = $Bias_Gate1 
+!ENDIF
+
+#IF $SchottyGate     barrier  =  $GateSchottyBarrier  # in [eV]
+
+#IF $SchottyGate   }
+
+#IF $OhmicGate   ohmic{
+#IF $OhmicGate    name = "Gate1" bias = $Bias_Gate1 shift  =  0 # in [eV]
+#IF $OhmicGate   }
+
+#IF $FermiGate   fermi{
+#IF $FermiGate    name = "Gate1" bias = $Bias_Gate1 # in [eV]
+#IF $FermiGate   }
+
+#IF $ZeroFieldGate   zero_field{
+#IF $ZeroFieldGate      name = "Gate1" bias = $Bias_Gate1 # in [eV]
+#IF $ZeroFieldGate   }
+
+#IF $ChargeNeutralGate   charge_neutral{
+#IF $ChargeNeutralGate     name = "Gate1" bias = $Bias_Gate1 # in [eV]
+#IF $ChargeNeutralGate   }
+#--------------------------------------------------------------------------------------------------------------
+#                                            GATE 2
+#--------------------------------------------------------------------------------------------------------------
+
+#IF $M3D #IF $SchottyGate   schottky{
+#IF $M3D #IF $SchottyGate     name = "Gate2" 
+
+#IF $M3D !IF($InSwp)
+#IF $M3D    #IF $SchottyGate     bias  = [$Bias_Gate_min,$Bias_Gate_max]  # start and end bias in [V]
+#IF $M3D    #IF $SchottyGate     steps = $Bias_Gate_step          # (optional) number of voltage sweep
+#IF $M3D !ELSE
+#IF $M3D    #IF $SchottyGate     bias  = $Bias_Gate2 
+#IF $M3D !ENDIF
+
+#IF $M3D #IF $SchottyGate     barrier  =  $GateSchottyBarrier  # in [eV]
+
+#IF $M3D #IF $SchottyGate   }
+
+#IF $M3D #IF $OhmicGate   ohmic{
+#IF $M3D #IF $OhmicGate    name = "Gate2" bias = $Bias_Gate2 shift  =  0 # in [eV]
+#IF $M3D #IF $OhmicGate   }
+
+#IF $M3D #IF $FermiGate   fermi{
+#IF $M3D #IF $FermiGate    name = "Gate2" bias = $Bias_Gate2 # in [eV]
+#IF $M3D #IF $FermiGate   }
+
+#IF $M3D #IF $ZeroFieldGate   zero_field{
+#IF $M3D #IF $ZeroFieldGate      name = "Gate2" bias = $Bias_Gate2 # in [eV]
+#IF $M3D #IF $ZeroFieldGate   }
+
+#IF $M3D #IF $ChargeNeutralGate   charge_neutral{
+#IF $M3D #IF $ChargeNeutralGate     name = "Gate2" bias = $Bias_Gate2 # in [eV]
+#IF $M3D #IF $ChargeNeutralGate   }
+
+#--------------------------------------------------------------------------------------------------------------
+#                                            GATE 3
+#--------------------------------------------------------------------------------------------------------------
+#IF $M3D #IF $SchottyGate   schottky{
+#IF $M3D #IF $SchottyGate     name = "Gate3" 
+
+#IF $M3D !IF($InSwp)
+#IF $M3D    #IF $SchottyGate     bias  = [$Bias_Gate_min,$Bias_Gate_max]  # start and end bias in [V]
+#IF $M3D    #IF $SchottyGate     steps = $Bias_Gate_step          # (optional) number of voltage sweep
+#IF $M3D !ELSE
+#IF $M3D    #IF $SchottyGate     bias  = $Bias_Gate3 
+#IF $M3D !ENDIF
+
+#IF $M3D #IF $SchottyGate     barrier  =  $GateSchottyBarrier  # in [eV]
+
+#IF $M3D #IF $SchottyGate   }
+
+#IF $M3D #IF $OhmicGate   ohmic{
+#IF $M3D #IF $OhmicGate    name = "Gate3" bias = $Bias_Gate3 shift  =  0 # in [eV]
+#IF $M3D #IF $OhmicGate   }
+
+#IF $M3D #IF $FermiGate   fermi{
+#IF $M3D #IF $FermiGate    name = "Gate3" bias = $Bias_Gate3 # in [eV]
+#IF $M3D #IF $FermiGate   }
+
+#IF $M3D #IF $ZeroFieldGate   zero_field{
+#IF $M3D #IF $ZeroFieldGate      name = "Gate3" bias = $Bias_Gate3 # in [eV]
+#IF $M3D #IF $ZeroFieldGate   }
+
+#IF $M3D #IF $ChargeNeutralGate   charge_neutral{
+#IF $M3D #IF $ChargeNeutralGate     name = "Gate" bias = $Bias_Gate3 # in [eV]
+#IF $M3D #IF $ChargeNeutralGate   }
+#--------------------------------------------------------------------------------------------------------------
+#                                            GATE 4
+#--------------------------------------------------------------------------------------------------------------
+#IF $M3D #IF $SchottyGate   schottky{
+#IF $M3D #IF $SchottyGate     name = "Gate4" 
+
+#IF $M3D !IF($InSwp)
+#IF $M3D    #IF $SchottyGate     bias  = [$Bias_Gate_min,$Bias_Gate_max]  # start and end bias in [V]
+#IF $M3D    #IF $S\chottyGate     steps = $Bias_Gate_step          # (optional) number of voltage sweep
+#IF $M3D !ELSE
+#IF $M3D    #IF $SchottyGate     bias  = $Bias_Gate4 
+#IF $M3D !ENDIF
+
+#IF $M3D #IF $SchottyGate     barrier  =  $GateSchottyBarrier  # in [eV]
+
+#IF $M3D #IF $SchottyGate   }
+
+#IF $M3D #IF $OhmicGate   ohmic{
+#IF $M3D #IF $OhmicGate    name = "Gate4" bias = $Bias_Gate4 shift  =  0 # in [eV]
+#IF $M3D #IF $OhmicGate   }
+
+#IF $M3D #IF $FermiGate   fermi{
+#IF $M3D #IF $FermiGate    name = "Gate4" bias = $Bias_Gate4 # in [eV]
+#IF $M3D #IF $FermiGate   }
+
+#IF $M3D #IF $ZeroFieldGate   zero_field{
+#IF $M3D #IF $ZeroFieldGate      name = "Gate4" bias = $Bias_Gate4 # in [eV]
+#IF $M3D #IF $ZeroFieldGate   }
+
+#IF $M3D #IF $ChargeNeutralGate   charge_neutral{
+#IF $M3D #IF $ChargeNeutralGate     name = "Gate4" bias = $Bias_Gate4 # in [eV]
+#IF $M3D #IF $ChargeNeutralGate   }
+#--------------------------------------------------------------------------------------------------------------
+#                                            GATE 5
+#--------------------------------------------------------------------------------------------------------------
+#IF $M3D #IF $SchottyGate   schottky{
+#IF $M3D #IF $SchottyGate     name = "Gate5" 
+
+#IF $M3D !IF($InSwp)
+#IF $M3D    #IF $SchottyGate     bias  = [$Bias_Gate_min,$Bias_Gate_max]  # start and end bias in [V]
+#IF $M3D    #IF $S\chottyGate     steps = $Bias_Gate_step          # (optional) number of voltage sweep
+#IF $M3D !ELSE
+#IF $M3D    #IF $SchottyGate     bias  = $Bias_Gate5 
+#IF $M3D !ENDIF
+
+#IF $M3D #IF $SchottyGate     barrier  =  $GateSchottyBarrier  # in [eV]
+
+#IF $M3D #IF $SchottyGate   }
+
+#IF $M3D #IF $OhmicGate   ohmic{
+#IF $M3D #IF $OhmicGate    name = "Gate5" bias = $Bias_Gate5 shift  =  0 # in [eV]
+#IF $M3D #IF $OhmicGate   }
+
+#IF $M3D #IF $FermiGate   fermi{
+#IF $M3D #IF $FermiGate    name = "Gate5" bias = $Bias_Gate5 # in [eV]
+#IF $M3D #IF $FermiGate   }
+
+#IF $M3D #IF $ZeroFieldGate   zero_field{
+#IF $M3D #IF $ZeroFieldGate      name = "Gate5" bias = $Bias_Gate5 # in [eV]
+#IF $M3D #IF $ZeroFieldGate   }
+
+#IF $M3D #IF $ChargeNeutralGate   charge_neutral{
+#IF $M3D #IF $ChargeNeutralGate     name = "Gate5" bias = $Bias_Gate5 # in [eV]
+#IF $M3D #IF $ChargeNeutralGate   }
+#--------------------------------------------------------------------------------------------------------------
+#                                            GATE 6
+#--------------------------------------------------------------------------------------------------------------
+#IF $M3D #IF $SchottyGate   schottky{
+#IF $M3D #IF $SchottyGate     name = "Gate6" 
+
+#IF $M3D !IF($InSwp)
+#IF $M3D    #IF $SchottyGate     bias  = [$Bias_Gate_min,$Bias_Gate_max]  # start and end bias in [V]
+#IF $M3D    #IF $S\chottyGate     steps = $Bias_Gate_step          # (optional) number of voltage sweep
+#IF $M3D !ELSE
+#IF $M3D    #IF $SchottyGate     bias  = $Bias_Gate6 
+#IF $M3D !ENDIF
+
+#IF $M3D #IF $SchottyGate     barrier  =  $GateSchottyBarrier  # in [eV]
+
+#IF $M3D #IF $SchottyGate   }
+
+#IF $M3D #IF $OhmicGate   ohmic{
+#IF $M3D #IF $OhmicGate    name = "Gate6" bias = $Bias_Gate6 shift  =  0 # in [eV]
+#IF $M3D #IF $OhmicGate   }
+
+#IF $M3D #IF $FermiGate   fermi{
+#IF $M3D #IF $FermiGate    name = "Gate6" bias = $Bias_Gate6 # in [eV]
+#IF $M3D #IF $FermiGate   }
+
+#IF $M3D #IF $ZeroFieldGate   zero_field{
+#IF $M3D #IF $ZeroFieldGate      name = "Gate6" bias = $Bias_Gate6 # in [eV]
+#IF $M3D #IF $ZeroFieldGate   }
+
+#IF $M3D #IF $ChargeNeutralGate   charge_neutral{
+#IF $M3D #IF $ChargeNeutralGate     name = "Gate6" bias = $Bias_Gate6 # in [eV]
+#IF $M3D #IF $ChargeNeutralGate   }
+#--------------------------------------------------------------------------------------------------------------
+#                                            GATE 7
+#--------------------------------------------------------------------------------------------------------------
+#IF $SchottyGate   schottky{
+#IF $SchottyGate     name = "Gate7" 
+
+!IF($InSwp)
+   #IF $SchottyGate     bias  = [$Bias_Gate_min,$Bias_Gate_max]  # start and end bias in [V]
+   #IF $SchottyGate     steps = $Bias_Gate_step          # (optional) number of voltage sweep
+!ELSE
+   #IF $SchottyGate     bias  = $Bias_Gate7
+!ENDIF
+
+#IF $SchottyGate     barrier  =  $GateSchottyBarrier  # in [eV]
+
+#IF $SchottyGate   }
+
+#IF $OhmicGate   ohmic{
+#IF $OhmicGate    name = "Gate7" bias = $Bias_Gate7 shift  =  0 # in [eV]
+#IF $OhmicGate   }
+
+#IF $FermiGate   fermi{
+#IF $FermiGate    name = "Gate7" bias = $Bias_Gate7 # in [eV]
+#IF $FermiGate   }
+
+#IF $ZeroFieldGate   zero_field{
+#IF $ZeroFieldGate      name = "Gate7" bias = $Bias_Gate7 # in [eV]
+#IF $ZeroFieldGate   }
+
+#IF $ChargeNeutralGate   charge_neutral{
+#IF $ChargeNeutralGate     name = "Gate7" bias = $Bias_Gate7 # in [eV]
+#IF $ChargeNeutralGate   }
+
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------------------------------------
+#                                            2DEG
+#--------------------------------------------------------------------------------------------------------------
+#IF $Schotty2DEG   schottky{
+#IF $Schotty2DEG     name = "2DEG_F_BC" bias = 0 barrier  =  0 # in [eV]
+#IF $Schotty2DEG   }
+#IF $Schotty2DEG   schottky{
+#IF $Schotty2DEG     name = "2DEG_B_BC" bias = 0 barrier  =  0  # in [eV]
+#IF $Schotty2DEG   }
+
+#IF $Ohmic2DEG   ohmic{
+#IF $Ohmic2DEG    name = "2DEG_F_BC" bias = 0  shift  =  0 # in [eV]
+#IF $Ohmic2DEG   }
+#IF $Ohmic2DEG   ohmic{
+#IF $Ohmic2DEG    name = "2DEG_B_BC" bias = 0  shift  =  0 # in [eV]
+#IF $Ohmic2DEG   }
+
+#IF $Fermi2DEG   fermi{
+#IF $Fermi2DEG    name = "2DEG_F_BC" bias = 0 # in [eV]
+#IF $Fermi2DEG   }
+#IF $Fermi2DEG   fermi{
+#IF $Fermi2DEG    name = "2DEG_B_BC" bias = 0 # in [eV]
+#IF $Fermi2DEG   }
+
+#IF $ZeroField2DEG   zero_field{
+#IF $ZeroField2DEG      name = "2DEG_F_BC" bias = 0 # in [eV]
+#IF $ZeroField2DEG   }
+#IF $ZeroField2DEG   zero_field{
+#IF $ZeroField2DEG      name = "2DEG_B_BC" bias = 0 # in [eV]
+#IF $ZeroField2DEG   }
+
+#IF $ChargeNeutral2DEG   charge_neutral{
+#IF $ChargeNeutral2DEG     name = "2DEG_F_BC" bias = 0 # in [eV]
+#IF $ChargeNeutral2DEG   }
+#IF $ChargeNeutral2DEG   charge_neutral{
+#IF $ChargeNeutral2DEG     name = "2DEG_B_BC" bias = 0 # in [eV]
+#IF $ChargeNeutral2DEG   }
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------
+#                                            2DEG_Bulk
+#--------------------------------------------------------------------------------------------------------------
+#IF $Schotty2DEGBulk   schottky{
+#IF $Schotty2DEGBulk    name = "2DEG_Bulk" bias = 0 barrier  =  0 # in [eV]
+#IF $Schotty2DEGBulk   }
+
+#IF $Ohmic2DEGBulk   ohmic{
+#IF $Ohmic2DEGBulk      name = "2DEG_Bulk" bias = 0  shift  =  0 # in [eV]
+#IF $Ohmic2DEGBulk   }
+
+#IF $Fermi2DEGBulk   fermi{
+#IF $Fermi2DEGBulk      name = "2DEG_Bulk" bias = 0 # in [eV]
+#IF $Fermi2DEGBulk   }
+
+#IF $ZeroField2DEGBulk   zero_field{
+#IF $ZeroField2DEGBulk     name = "2DEG_Bulk" bias = 0 # in [eV]
+#IF $ZeroField2DEGBulk   }
+
+#IF $ChargeNeutral2DEGBulk   charge_neutral{
+#IF $ChargeNeutral2DEGBulk    name = "2DEG_Bulk" bias = 0 # in [eV]
+#IF $ChargeNeutral2DEGBulk   }
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------
+#                                            Bottom
+#--------------------------------------------------------------------------------------------------------------
+##IF $SchottyBottom   schottky{
+##IF $SchottyBottom      name = "Bottom" bias = 0 barrier  =  $BottomSchottyBarrier # in [eV]
+##IF $SchottyBottom   }
+#
+##IF $OhmicBottom   ohmic{
+##IF $OhmicBottom     name = "Bottom" bias = 0  shift  =  0 # in [eV]
+##IF $OhmicBottom   }
+#
+##IF $FermiBottom   fermi{
+##IF $FermiBottom     name = "Bottom" bias = 0 # in [eV]
+##IF $FermiBottom   }
+#
+##IF $ZeroFieldBottom   zero_field{
+##IF $ZeroFieldBottom    name = "Bottom" bias = 0 # in [eV]
+##IF $ZeroFieldBottom   }
+#
+##IF $ChargeNeutralBottom   charge_neutral{
+##IF $ChargeNeutralBottom      name = "Bottom" bias = 0 # in [eV]
+##IF $ChargeNeutralBottom   }
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------------------------------------
+#                                            Top no Gate
+#--------------------------------------------------------------------------------------------------------------
+#IF $SchottyTopNoGate   schottky{
+#IF $SchottyTopNoGate      name = "SurfaceWhereNoGate" bias = 0 barrier  =  0 # in [eV]
+#IF $SchottyTopNoGate   }
+
+#IF $OhmicTopNoGate   ohmic{
+#IF $OhmicTopNoGate     name = "SurfaceWhereNoGate" bias = 0  shift  =  0 # in [eV]
+#IF $OhmicTopNoGate   }
+
+#IF $FermiTopNoGate   fermi{
+#IF $FermiTopNoGate     name = "SurfaceWhereNoGate" bias = 0 # in [eV]
+#IF $FermiTopNoGate   }
+
+#IF $ZeroFieldTopNoGate   zero_field{
+#IF $ZeroFieldTopNoGate    name = "SurfaceWhereNoGate" bias = 0 # in [eV]
+#IF $ZeroFieldTopNoGate   }
+
+#IF $ChargeNeutralTopNoGate   charge_neutral{
+#IF $ChargeNeutralTopNoGate      name = "SurfaceWhereNoGate" bias = 0 # in [eV]
+#IF $ChargeNeutralTopNoGate   }
+
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+
+#IF $SchottyInsuBulk   schottky{
+#IF $SchottyInsuBulk      name = "Insu_Bulk" bias = 0 barrier  =  0 # in [eV]
+#IF $SchottyInsuBulk   }
+
+#IF $OhmicInsuBulk   ohmic{
+#IF $OhmicInsuBulk      name = "Insu_Bulk" bias = 0  shift  =  0 # in [eV]
+#IF $OhmicInsuBulk   }
+
+#IF $FermiInsuBulk   fermi{
+#IF $FermiInsuBulk      name = "Insu_Bulk" bias = 0 # in [eV]
+#IF $FermiInsuBulk   }
+
+#IF $ZeroFieldInsuBulk   zero_field{
+#IF $ZeroFieldInsuBulk     name = "Insu_Bulk" bias = 0 # in [eV]
+#IF $ZeroFieldInsuBulk   }
+
+#IF $ChargeNeutralInsuBulk   charge_neutral{
+#IF $ChargeNeutralInsuBulk    name = "Insu_Bulk" bias = 0 # in [eV]
+#IF $ChargeNeutralInsuBulk   }
+
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+
+#IF $SchottyDoped   schottky{
+#IF $SchottyDoped   name = "Doped_Bulk" bias = 0 barrier  =  0 # in [eV]
+##IF $SchottyDoped   }
+
+#IF $OhmicDoped   ohmic{
+#IF $OhmicDoped   name = "Doped_Bulk" bias = 0  shift  =  0 # in [eV]
+#IF $OhmicDoped   }
+
+#IF $FermiDoped  fermi{
+#IF $FermiDoped  name = "Doped_Bulk" bias = 0 # in [eV]
+#IF $FermiDoped  }
+
+#IF $ZeroFieldDoped   zero_field{
+#IF $ZeroFieldDoped   name = "Doped_Bulk" bias = 0 # in [eV]
+#IF $ZeroFieldDoped   }
+
+#IF $ChargeNeutralDoped  charge_neutral{
+#IF $ChargeNeutralDoped  name = "Doped_Bulk" bias = 0 # in [eV]
+#IF $ChargeNeutralDoped  }
+
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+
+#IF $SchottyCap   schottky{
+#IF $SchottyCap   name = "Cap_Bulk" bias = 0 barrier  =  0 # in [eV]
+#IF $SchottyCap   }
+
+#IF $OhmicCap   ohmic{
+#IF $OhmicCap   name = "Cap_Bulk" bias = 0  shift  =  0 # in [eV]
+#IF $OhmicCap   }
+
+#IF $FermiCap   fermi{
+#IF $FermiCap   name = "Cap_Bulk" bias = 0 # in [eV]
+#IF $FermiCap   }
+
+#IF $ZeroFieldCap   zero_field{
+#IF $ZeroFieldCap   name = "Cap_Bulk" bias = 0 # in [eV]
+#IF $ZeroFieldCap   }
+
+#IF $ChargeNeutralCap   charge_neutral{
+#IF $ChargeNeutralCap   name = "Cap_Bulk" bias = 0 # in [eV]
+#IF $ChargeNeutralCap   }
+#--------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+
+#IF $SchottyAir   schottky{
+#IF $SchottyAir   name = "AirTop" bias = 0 barrier  =  0 # in [eV]
+#IF $SchottyAir   }
+
+#IF $OhmicAir   ohmic{
+#IF $OhmicAir   name = "AirTop" bias = 0  shift  =  0 # in [eV]
+#IF $OhmicAir   }
+
+#IF $FermiAir   fermi{
+#IF $FermiAir   name = "AirTop" bias = 0 # in [eV]
+#IF $FermiAir   }
+
+#IF $ZeroFieldAir   zero_field{
+#IF $ZeroFieldAir   name = "AirTop" bias = 0 # in [eV]
+#IF $ZeroFieldAir   }
+
+#IF $ChargeNeutralAir   charge_neutral{
+#IF $ChargeNeutralAir   name = "AirTop" bias = 0 # in [eV]
+#IF $ChargeNeutralAir   }
+
+
+   fermi{
+      name = "Air" bias = 0# in [eV]
+   }
+#   fermi{
+#      name = "Sub" bias = 0# in [eV]
+#   }
+
+}
+
+impurities{
+acceptor {
+   name = "B"
+   energy = -$IonizeE  # e.g., -0.045 for boron in silicon (in eV)
+   degeneracy = 4
+}
+   donor{
+      name = "Si"
+      energy = $IonizeE #0.005 # Need to change(-1000 fully ionized)
+      degeneracy = 2
+   }
+!IF($BKD_donor)
+   donor{ name = "BKI"       
+      energy = $IonizeE_BK
+      degeneracy = 2 }
+!ELSE
+   acceptor{ name = "BKI"       
+      energy = $IonizeE_BK
+      degeneracy = 4 }
+
+!ENDIF
+
+   charge{ name = "SurfaceCharge"   type = negative }
+}
+
+classical{
+   Gamma{} 
+   L{}
+   X{}
+   HH{}
+   LH{}
+   SO{}
+
+
+!IF($FullOutput)
+   output_bandedges{ averaged = no }
+!ELSE
+   output_bandedges{ profiles = "Gamma"
+   averaged = no }
+!ENDIF
+output_carrier_densities{}
+##IF $FullOutput      output_carrier_densities{}
+#IF $FullOutput      output_ionized_dopant_densities{}
+#IF $FullOutput      output_intrinsic_density{}
+}
+
+#IF $Import  import{
+#IF $Import     file{
+#IF $Import     name = "ImportPotential"
+#IF $Import     filename = $ImportPotentialFile
+#IF $Import     format = $ImportFormat   
+#IF $Import     }
+#IF $Import  }  
+  
+poisson{
+   #IF $Import  import_potential{import_from = "ImportPotential"}
+   output_potential{}
+#IF $FullOutput   output_electric_field{}
+   newton_solver{ iterations = 200
+      search_steps = 50 }
+}
+
+quantum {
+   region{
+      name = "quantum_region_2DEG"
+!IF($Nokpband)  
+   #IF $QuantiseX    quantize_x{}
+!ENDIF
+      x = [$START_Ge_QW-30, $START_SiGe_CAP+30] 
+#IF $M3D      z = [$x_min , $x_max]
+#IF $M3D      y = [$y_min , $y_max]
+!IF($kpband)
+   kp_6band{
+!ELSE
+   Gamma{
+!ENDIF
+                  num_ev           = $NUM_EIGENSTATES_el 
+#IF $kpband       kp_parameters{
+#IF $kpband               use_Luttinger_parameters = no
+#IF $kpband               approximate_kappa        = no
+#IF $kpband          }
+!IF($M1D)
+   #IF $kpband       k_integration{
+   #IF $kpband       relative_size = 0.2
+   #IF $kpband       num_points    = 5
+   #IF $kpband       num_subpoints = 2
+   #IF $kpband       max_symmetry  = no
+   #IF $kpband       force_k0_subspace = yes
+   #IF $kpband       }
+!ENDIF
+            # Eigensolvers (choose one)
+#IF $M3D       arpack{}            
+#IF $M1D       lapack{}
+#            accuracy         = 1e-6
+#            iterations       = 200
+#            preconditioner   = chebyshev
+#            cutoff           = 1
+#            abs_cutoff       = 2.5
+#            order_chebyshev  = 20
+      }
+      boundary{
+      x = neumann
+#IF $M3D      y = neumann
+      #  z = neumann
+      #  x = dirichlet 
+      #  y = dirichlet 
+#IF $M3D      z = neumann
+      }
+      
+      
+#IF $FullOutput         output_wavefunctions{
+#IF $FullOutput            max_num = 9999
+#IF $FullOutput            all_k_points = yes
+#IF $FullOutput            amplitudes = no
+#IF $FullOutput            probabilities = yes
+#IF $FullOutput         }
+   }
+   region{
+
+      name = "quantum_region_CAP"
+!IF($Nokpband)  
+   #IF $QuantiseX    quantize_x{}
+!ENDIF
+      x = [$START_Ge_CAP-5, $START_AlOx_INSU+5] # xmin xmax
+#IF $M3D      z = [$x_min , $x_max]
+#IF $M3D      y = [$y_min , $y_max]
+
+!IF($kpband)
+   kp_6band{
+!ELSE
+   Gamma{
+!ENDIF
+                  num_ev           = $NUM_EIGENSTATES_el 
+#IF $kpband       kp_parameters{
+#IF $kpband               use_Luttinger_parameters = no
+#IF $kpband               approximate_kappa        = no
+#IF $kpband          }
+!IF($M1D)
+   #IF $kpband       k_integration{
+   #IF $kpband       relative_size = 0.2
+   #IF $kpband       num_points    = 5
+   #IF $kpband       num_subpoints = 2
+   #IF $kpband       max_symmetry  = no
+   #IF $kpband       force_k0_subspace = yes
+   #IF $kpband       }
+!ENDIF
+
+            # Eigensolvers (choose one)
+#IF $M3D       arpack{}            
+#IF $M1D       lapack{}
+#            accuracy         = 1e-6
+#            iterations       = 200
+#            preconditioner   = chebyshev
+#            cutoff           = 1
+#            abs_cutoff       = 2.5
+#            order_chebyshev  = 20
+      }
+      boundary{
+         x = neumann
+#IF $M3D      y = neumann
+    #     z = neumann
+     #   x = dirichlet 
+     #   y = dirichlet 
+#IF $M3D      z = neumann
+      }
+      
+      
+#IF $FullOutput         output_wavefunctions{
+#IF $FullOutput            max_num = 9999
+#IF $FullOutput            all_k_points = yes
+#IF $FullOutput            amplitudes = no
+#IF $FullOutput            probabilities = yes
+#IF $FullOutput         }
+   }     
+}
+strain{
+   pseudomorphic_strain{}
+#IF $FullOutput      output_strain_tensor{}
+}
+
+currents{
+   recombination_model{
+      SRH         = no
+      Auger       = no
+      radiative   = no
+   }
+#IF $FullOutput      output_fermi_levels{}
+}
+
+
+output{
+#IF $NextNanoRun    directory = $outputfolder
+#IF $FullOutput     material_parameters{}
+   !IF($M1D)
+      section{name = "x"}
+      section{
+         name = "NoMetalPart"
+         range_x = [-$ExpendGridPoints*$GRID_z_SUB, $START_AlOx_INSU]   # range in x direction [nm]
+         
+      }
+
+   !ELSE
+#   section{
+#      name = "NoMetalPart"
+##      range_x = [$START_In75Ga25As_2DEG , $START_In75Al25As_SPACER ]   # range in x direction [nm]
+#      range_x = [-$ExpendGridPoints*$GRID_z_SUB, $START_SiOx_INSU]   # range in x direction [nm]
+#      range_z = [$x_min, $x_max]       # (optional) range in x direction [nm]
+#      range_y = [$y_min, $y_max]       # (optional) range in y direction [nm]
+#
+#   }
+   section1D{                               
+      name = "x"   
+      z = $Width/2                               
+      y = $Length/2                              
+   }
+
+#IF $FullOutput            section2D{                               
+#IF $FullOutput               name = "2DEG"   
+#IF $FullOutput               x = $START_Ge_QW+0.01
+
+#IF $FullOutput               range_z = [$x_min, $x_max]       # (optional) range in x direction [nm]
+#IF $FullOutput               range_y = [$y_min, $y_max]       # (optional) range in y direction [nm]
+#IF $FullOutput            }
+   section2D{                               
+      name = "2DEG_NoBoundary"   
+      x = $START_Ge_QW+0.01
+range_z = [$x_min, $x_max]  
+range_y = [$y_min, $y_max]     
+  #    range_z = [0, $x_Junc+2*$x_Side]       # (optional) range in x direction [nm]
+  #    range_y = [0, $y_Junc+2*$y_SC]       # (optional) range in y direction [nm]
+   }
+
+
+
+!ENDIF
+
+}
+database{
+binary_zb {
+    name    = Al2O3_zb
+    valence = III_V                                            # Consistent with AlN-type compounds
+
+    lattice_consts {
+        a           = 5.26                                     # Approx. guess for cubic form
+        a_expansion = 0                                        # No thermal expansion data available
+    }
+
+    dielectric_consts {
+        static_a  = 9.4                                        # From sapphire (perpendicular)
+        optical_a = 4.68                                       # AlN value, used as approximation
+    }
+
+    elastic_consts {
+        c11 = 496       c12 = 164       c44 = 148              # From sapphire (anisotropic, but used here for isotropic approx.)
+    }
+
+    piezoelectric_consts {
+        e14 = 0.00                                             # Zincblende symmetry: e14 allowed, but assume zero for simplicity
+    }
+
+conduction_bands {
+    Gamma {
+        mass                  = 0.32                       # Adjusted for oxide (lower than Si)
+        bandgap               = 6.25                       # Realistic direct   -gap (0 K)
+        bandgap_alpha         = 0
+        bandgap_beta          = 0
+        defpot_absolute       = -3.4
+    }
+
+    L {
+        mass_l                = 1.2                        # Estimated, heavier due to localization
+        mass_t                = 0.25                       # Lower transverse mass
+        bandgap               = 7.8                        # ~1.5 eV above    (offset ~estimate)
+        bandgap_alpha         = 0
+        bandgap_beta          = 0
+        defpot_absolute       = -1.85                      # Reflects deeper barrier
+        defpot_uniaxial       = 0
+    }
+
+    Delta {
+        mass_l                = 0.5                        # Fischetti for Si; kept here
+        mass_t                = 0.3                        # Slightly anisotropic for oxide
+        bandgap               = 8.2                        # ~2.0 eV above   
+        bandgap_alpha         = 0
+        bandgap_beta          = 0
+        defpot_absolute       = -1.45                      # Aligned with gap energy
+        defpot_uniaxial       = 0
+        position              = 0.85                       # Retained from Si; used in intervalley scattering
+    }
+}
+    valence_bands {
+        bandoffset        = -1.526                             # From AlN
+
+        HH { mass = 3.53 }                                     # Using AlN values
+        LH { mass = 0.24 }                                     # Using AlN values
+        SO { mass = 0.25 }                                     # Using AlN values
+
+        defpot_absolute   = 0
+        defpot_uniaxial_b = 0   defpot_uniaxial_d = 0
+
+        delta_SO          = 0.169                              # Splitting from wurtzite version (|delta[0]|), used as proxy
+    }
+
+    kp_6_bands {
+    L     = 3.86
+    M     = -0.25
+    N     = 3.58
+    kappa = -0.25
+}
+
+    kp_8_bands {
+    S     = 0.805              # Use S1 as effective scalar (S1~S2)
+    E_P   = 14.5               # Take E_P1, E_P2 = 14.5 (OK)
+    B     = 0                  # B1, B2, B3 are zero    consistent for III-V
+
+    # Redundant if L,M,N already defined in kp_6_bands, but if needed:
+    L     = 3.86
+    M     = -0.25
+    N     = 3.58
+    kappa = -0.25
+}
+
+    mobility_constant {
+        electrons { mumax = 100     exponent = 1.0 }           # AlN values
+        holes     { mumax = 100     exponent = 1.0 }
+    }
+
+    recombination {
+        SRH {
+            tau_n = 1.0e-9     nref_n = 1.0e19                 # From InP    dummy
+            tau_p = 1.0e-9     nref_p = 1.0e19
+        }
+        Auger {
+            c_n = 1e-31        c_p = 1e-31                     # Dummy values
+        }
+        radiative {
+            c = 1e-15                                           # Dummy value
+        }
+    }
+}}
+run{
+   solve_strain{}   
+   solve_poisson{}
+#IF $QuantumSelfConsistent    solve_quantum{}
+#IF $QuantumSelfConsistent    outer_iteration{} # (solve Schroedinger, Poisson (and current) self-consistently) 
+}
+
+
+
+#database{
+#	binary_zb {
+#      	name = SiO2
+#      	valence_bands{
+##         	      bandoffset = -3.2375
+##         	      bandoffset = -1.24392
+#     	 	}  
+#   	}  
+#
+##### gallium arsenide ##################################################
+#   	binary_zb {
+#      	name = GaAs
+#      	valence_bands{
+##      	      bandoffset = 1.346          #2 set
+##      	      bandoffset = -0.96192       #1 set
+#      	}     
+#   	}
+#
+##### aluminum arsenide ##################################################
+#   	binary_zb {
+#      	name = AlAs
+#      	valence_bands{
+##         	      bandoffset = 0.857    #2 set
+##        	      bandoffset = -1.45092  #1 set
+#      	}  
+#   	}
+#
+##### indium arsenide ##################################################
+#   	binary_zb {
+#     	 	name = InAs 
+#      	valence_bands{
+##        	      bandoffset = 1.390     #2 set
+##         	      bandoffset = -0.91732  #1 set
+#      	}   
+#   	}
+#
+##### indium gallium arsenide ###################################################
+#
+#   	ternary_zb{
+#      	name = "In(x)Ga(1-x)As"
+#      	valence = III_V
+#      
+#      	binary_x   = InAs
+#      	binary_1_x = GaAs 
+##      	bowing_x   = InAs_Bowing_x
+##      	bowing_1_x = GaAs_Bowing_1_x 
+#      	valence_bands{
+##      		bandoffset = -0.0511107  #1 set
+#      	}
+#   	}  
+#
+##### indium aluminum arsenide ###################################################
+#
+#   	ternary_zb{
+#      	name = "In(x)Al(1-x)As"
+#      	valence = III_V
+#      	binary_x   = InAs
+#      	binary_1_x = AlAs
+#      	valence_bands{
+##                 bandoffset = -0.048105  #2 set                        
+##                 bandoffset = -0.2175   #1 set
+#
+#      	}
+#   	}  
+#}
+
+
+
+
+
+
+
+
+
+

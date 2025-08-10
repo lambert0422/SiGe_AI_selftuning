@@ -1,0 +1,305 @@
+
+# Pattern 1
+#IF $M3D vertex{ z = 489 y = 345 }
+#IF $M3D vertex{ z = 492 y = 348 }
+#IF $M3D vertex{ z = 495 y = 348 }
+#IF $M3D vertex{ z = 498 y = 351 }
+#IF $M3D vertex{ z = 501 y = 351 }
+#IF $M3D vertex{ z = 504 y = 354 }
+#IF $M3D vertex{ z = 510 y = 354 }
+#IF $M3D vertex{ z = 513 y = 357 }
+#IF $M3D vertex{ z = 516 y = 357 }
+#IF $M3D vertex{ z = 519 y = 360 }
+#IF $M3D vertex{ z = 525 y = 360 }
+#IF $M3D vertex{ z = 528 y = 363 }
+#IF $M3D vertex{ z = 531 y = 363 }
+#IF $M3D vertex{ z = 534 y = 366 }
+#IF $M3D vertex{ z = 540 y = 366 }
+#IF $M3D vertex{ z = 543 y = 369 }
+#IF $M3D vertex{ z = 552 y = 369 }
+#IF $M3D vertex{ z = 555 y = 372 }
+#IF $M3D vertex{ z = 561 y = 372 }
+#IF $M3D vertex{ z = 564 y = 375 }
+#IF $M3D vertex{ z = 573 y = 375 }
+#IF $M3D vertex{ z = 576 y = 378 }
+#IF $M3D vertex{ z = 588 y = 378 }
+#IF $M3D vertex{ z = 591 y = 381 }
+#IF $M3D vertex{ z = 603 y = 381 }
+#IF $M3D vertex{ z = 609 y = 387 }
+#IF $M3D vertex{ z = 609 y = 390 }
+#IF $M3D vertex{ z = 612 y = 393 }
+#IF $M3D vertex{ z = 612 y = 429 }
+#IF $M3D vertex{ z = 621 y = 429 }
+#IF $M3D vertex{ z = 621 y = 396 }
+#IF $M3D vertex{ z = 624 y = 393 }
+#IF $M3D vertex{ z = 624 y = 387 }
+#IF $M3D vertex{ z = 630 y = 381 }
+#IF $M3D vertex{ z = 639 y = 381 }
+#IF $M3D vertex{ z = 642 y = 378 }
+#IF $M3D vertex{ z = 654 y = 378 }
+#IF $M3D vertex{ z = 657 y = 375 }
+#IF $M3D vertex{ z = 666 y = 375 }
+#IF $M3D vertex{ z = 669 y = 372 }
+#IF $M3D vertex{ z = 675 y = 372 }
+#IF $M3D vertex{ z = 678 y = 369 }
+#IF $M3D vertex{ z = 684 y = 369 }
+#IF $M3D vertex{ z = 687 y = 366 }
+#IF $M3D vertex{ z = 693 y = 366 }
+#IF $M3D vertex{ z = 696 y = 363 }
+#IF $M3D vertex{ z = 702 y = 363 }
+#IF $M3D vertex{ z = 705 y = 360 }
+#IF $M3D vertex{ z = 708 y = 360 }
+#IF $M3D vertex{ z = 711 y = 357 }
+#IF $M3D vertex{ z = 714 y = 357 }
+#IF $M3D vertex{ z = 717 y = 354 }
+#IF $M3D vertex{ z = 723 y = 354 }
+#IF $M3D vertex{ z = 726 y = 351 }
+#IF $M3D vertex{ z = 729 y = 351 }
+#IF $M3D vertex{ z = 732 y = 348 }
+#IF $M3D vertex{ z = 735 y = 348 }
+#IF $M3D vertex{ z = 738 y = 345 }
+#IF $M3D vertex{ z = 726 y = 345 }
+#IF $M3D vertex{ z = 723 y = 348 }
+#IF $M3D vertex{ z = 714 y = 348 }
+#IF $M3D vertex{ z = 711 y = 351 }
+#IF $M3D vertex{ z = 705 y = 351 }
+#IF $M3D vertex{ z = 702 y = 354 }
+#IF $M3D vertex{ z = 693 y = 354 }
+#IF $M3D vertex{ z = 690 y = 357 }
+#IF $M3D vertex{ z = 681 y = 357 }
+#IF $M3D vertex{ z = 678 y = 360 }
+#IF $M3D vertex{ z = 672 y = 360 }
+#IF $M3D vertex{ z = 669 y = 363 }
+#IF $M3D vertex{ z = 657 y = 363 }
+#IF $M3D vertex{ z = 654 y = 366 }
+#IF $M3D vertex{ z = 642 y = 366 }
+#IF $M3D vertex{ z = 639 y = 369 }
+#IF $M3D vertex{ z = 624 y = 369 }
+#IF $M3D vertex{ z = 621 y = 372 }
+#IF $M3D vertex{ z = 609 y = 372 }
+#IF $M3D vertex{ z = 606 y = 369 }
+#IF $M3D vertex{ z = 585 y = 369 }
+#IF $M3D vertex{ z = 582 y = 366 }
+#IF $M3D vertex{ z = 570 y = 366 }
+#IF $M3D vertex{ z = 567 y = 363 }
+#IF $M3D vertex{ z = 558 y = 363 }
+#IF $M3D vertex{ z = 555 y = 360 }
+#IF $M3D vertex{ z = 546 y = 360 }
+#IF $M3D vertex{ z = 543 y = 357 }
+#IF $M3D vertex{ z = 534 y = 357 }
+#IF $M3D vertex{ z = 531 y = 354 }
+#IF $M3D vertex{ z = 522 y = 354 }
+#IF $M3D vertex{ z = 519 y = 351 }
+#IF $M3D vertex{ z = 513 y = 351 }
+#IF $M3D vertex{ z = 510 y = 348 }
+#IF $M3D vertex{ z = 501 y = 348 }
+#IF $M3D vertex{ z = 498 y = 345 }
+
+# Pattern 2
+#IF $M3D vertex{ z = 996 y = 342 }
+#IF $M3D vertex{ z = 993 y = 345 }
+#IF $M3D vertex{ z = 1002 y = 354 }
+#IF $M3D vertex{ z = 1002 y = 360 }
+#IF $M3D vertex{ z = 1005 y = 363 }
+#IF $M3D vertex{ z = 1005 y = 429 }
+#IF $M3D vertex{ z = 1014 y = 429 }
+#IF $M3D vertex{ z = 1014 y = 357 }
+#IF $M3D vertex{ z = 1020 y = 351 }
+#IF $M3D vertex{ z = 1020 y = 348 }
+#IF $M3D vertex{ z = 1023 y = 345 }
+#IF $M3D vertex{ z = 1020 y = 342 }
+
+# Pattern 3
+#IF $M3D vertex{ z = 849 y = 342 }
+#IF $M3D vertex{ z = 849 y = 345 }
+#IF $M3D vertex{ z = 858 y = 354 }
+#IF $M3D vertex{ z = 858 y = 360 }
+#IF $M3D vertex{ z = 861 y = 363 }
+#IF $M3D vertex{ z = 861 y = 429 }
+#IF $M3D vertex{ z = 870 y = 429 }
+#IF $M3D vertex{ z = 870 y = 357 }
+#IF $M3D vertex{ z = 873 y = 354 }
+#IF $M3D vertex{ z = 873 y = 351 }
+#IF $M3D vertex{ z = 879 y = 345 }
+#IF $M3D vertex{ z = 879 y = 342 }
+
+# Pattern 4
+#IF $M3D vertex{ z = 351 y = 342 }
+#IF $M3D vertex{ z = 351 y = 345 }
+#IF $M3D vertex{ z = 360 y = 354 }
+#IF $M3D vertex{ z = 360 y = 429 }
+#IF $M3D vertex{ z = 372 y = 429 }
+#IF $M3D vertex{ z = 372 y = 354 }
+#IF $M3D vertex{ z = 381 y = 345 }
+#IF $M3D vertex{ z = 381 y = 342 }
+
+# Pattern 5
+#IF $M3D vertex{ z = 210 y = 342 }
+#IF $M3D vertex{ z = 207 y = 345 }
+#IF $M3D vertex{ z = 213 y = 351 }
+#IF $M3D vertex{ z = 213 y = 354 }
+#IF $M3D vertex{ z = 216 y = 357 }
+#IF $M3D vertex{ z = 216 y = 429 }
+#IF $M3D vertex{ z = 228 y = 429 }
+#IF $M3D vertex{ z = 228 y = 354 }
+#IF $M3D vertex{ z = 237 y = 345 }
+#IF $M3D vertex{ z = 234 y = 342 }
+
+# Pattern 6
+#IF $M3D vertex{ z = 1074 y = 300 }
+#IF $M3D vertex{ z = 1074 y = 303 }
+#IF $M3D vertex{ z = 1071 y = 306 }
+#IF $M3D vertex{ z = 1071 y = 429 }
+#IF $M3D vertex{ z = 1083 y = 429 }
+#IF $M3D vertex{ z = 1083 y = 303 }
+#IF $M3D vertex{ z = 1080 y = 300 }
+
+# Pattern 7
+#IF $M3D vertex{ z = 933 y = 300 }
+#IF $M3D vertex{ z = 930 y = 303 }
+#IF $M3D vertex{ z = 930 y = 429 }
+#IF $M3D vertex{ z = 942 y = 429 }
+#IF $M3D vertex{ z = 942 y = 303 }
+#IF $M3D vertex{ z = 939 y = 300 }
+
+# Pattern 8
+#IF $M3D vertex{ z = 291 y = 300 }
+#IF $M3D vertex{ z = 291 y = 429 }
+#IF $M3D vertex{ z = 300 y = 429 }
+#IF $M3D vertex{ z = 300 y = 303 }
+#IF $M3D vertex{ z = 297 y = 300 }
+
+# Pattern 9
+#IF $M3D vertex{ z = 150 y = 300 }
+#IF $M3D vertex{ z = 150 y = 429 }
+#IF $M3D vertex{ z = 159 y = 429 }
+#IF $M3D vertex{ z = 159 y = 303 }
+#IF $M3D vertex{ z = 156 y = 300 }
+
+# Pattern 10
+#IF $M3D vertex{ z = 792 y = 297 }
+#IF $M3D vertex{ z = 786 y = 303 }
+#IF $M3D vertex{ z = 786 y = 429 }
+#IF $M3D vertex{ z = 798 y = 429 }
+#IF $M3D vertex{ z = 798 y = 303 }
+
+# Pattern 11
+#IF $M3D vertex{ z = 438 y = 297 }
+#IF $M3D vertex{ z = 435 y = 300 }
+#IF $M3D vertex{ z = 435 y = 429 }
+#IF $M3D vertex{ z = 444 y = 429 }
+#IF $M3D vertex{ z = 444 y = 303 }
+
+# Pattern 12
+#IF $M3D vertex{ z = 1023 y = 228 }
+#IF $M3D vertex{ z = 1023 y = 234 }
+#IF $M3D vertex{ z = 1026 y = 237 }
+#IF $M3D vertex{ z = 1230 y = 237 }
+#IF $M3D vertex{ z = 1230 y = 225 }
+#IF $M3D vertex{ z = 1029 y = 225 }
+#IF $M3D vertex{ z = 1026 y = 228 }
+
+# Pattern 13
+#IF $M3D vertex{ z = 0 y = 225 }
+#IF $M3D vertex{ z = 0 y = 237 }
+#IF $M3D vertex{ z = 213 y = 237 }
+#IF $M3D vertex{ z = 219 y = 231 }
+#IF $M3D vertex{ z = 216 y = 228 }
+#IF $M3D vertex{ z = 213 y = 228 }
+#IF $M3D vertex{ z = 210 y = 225 }
+
+# Pattern 14
+#IF $M3D vertex{ z = 1083 y = 0 }
+#IF $M3D vertex{ z = 1083 y = 120 }
+#IF $M3D vertex{ z = 1089 y = 120 }
+#IF $M3D vertex{ z = 1092 y = 117 }
+#IF $M3D vertex{ z = 1092 y = 0 }
+
+# Pattern 15
+#IF $M3D vertex{ z = 990 y = 0 }
+#IF $M3D vertex{ z = 990 y = 36 }
+#IF $M3D vertex{ z = 987 y = 39 }
+#IF $M3D vertex{ z = 987 y = 42 }
+#IF $M3D vertex{ z = 981 y = 48 }
+#IF $M3D vertex{ z = 981 y = 51 }
+#IF $M3D vertex{ z = 984 y = 54 }
+#IF $M3D vertex{ z = 1008 y = 54 }
+#IF $M3D vertex{ z = 1008 y = 48 }
+#IF $M3D vertex{ z = 1002 y = 42 }
+#IF $M3D vertex{ z = 1002 y = 39 }
+#IF $M3D vertex{ z = 999 y = 36 }
+#IF $M3D vertex{ z = 999 y = 0 }
+
+# Pattern 16
+#IF $M3D vertex{ z = 897 y = 0 }
+#IF $M3D vertex{ z = 897 y = 120 }
+#IF $M3D vertex{ z = 900 y = 123 }
+#IF $M3D vertex{ z = 903 y = 123 }
+#IF $M3D vertex{ z = 906 y = 120 }
+#IF $M3D vertex{ z = 906 y = 0 }
+
+# Pattern 17
+#IF $M3D vertex{ z = 261 y = 228 }
+#IF $M3D vertex{ z = 261 y = 234 }
+#IF $M3D vertex{ z = 264 y = 234 }
+#IF $M3D vertex{ z = 267 y = 237 }
+#IF $M3D vertex{ z = 978 y = 237 }
+#IF $M3D vertex{ z = 981 y = 234 }
+#IF $M3D vertex{ z = 981 y = 231 }
+#IF $M3D vertex{ z = 975 y = 225 }
+#IF $M3D vertex{ z = 795 y = 225 }
+#IF $M3D vertex{ z = 786 y = 216 }
+#IF $M3D vertex{ z = 786 y = 213 }
+#IF $M3D vertex{ z = 777 y = 204 }
+#IF $M3D vertex{ z = 777 y = 201 }
+#IF $M3D vertex{ z = 771 y = 195 }
+#IF $M3D vertex{ z = 657 y = 195 }
+#IF $M3D vertex{ z = 654 y = 192 }
+#IF $M3D vertex{ z = 639 y = 192 }
+#IF $M3D vertex{ z = 633 y = 186 }
+#IF $M3D vertex{ z = 633 y = 0 }
+#IF $M3D vertex{ z = 597 y = 0 }
+#IF $M3D vertex{ z = 597 y = 189 }
+#IF $M3D vertex{ z = 594 y = 192 }
+#IF $M3D vertex{ z = 462 y = 192 }
+#IF $M3D vertex{ z = 459 y = 195 }
+#IF $M3D vertex{ z = 456 y = 195 }
+#IF $M3D vertex{ z = 456 y = 198 }
+#IF $M3D vertex{ z = 447 y = 207 }
+#IF $M3D vertex{ z = 447 y = 210 }
+#IF $M3D vertex{ z = 441 y = 216 }
+#IF $M3D vertex{ z = 441 y = 219 }
+#IF $M3D vertex{ z = 435 y = 225 }
+#IF $M3D vertex{ z = 267 y = 225 }
+#IF $M3D vertex{ z = 264 y = 228 }
+
+# Pattern 18
+#IF $M3D vertex{ z = 330 y = 0 }
+#IF $M3D vertex{ z = 330 y = 120 }
+#IF $M3D vertex{ z = 333 y = 123 }
+#IF $M3D vertex{ z = 336 y = 123 }
+#IF $M3D vertex{ z = 339 y = 120 }
+#IF $M3D vertex{ z = 339 y = 0 }
+
+# Pattern 19
+#IF $M3D vertex{ z = 237 y = 0 }
+#IF $M3D vertex{ z = 237 y = 39 }
+#IF $M3D vertex{ z = 234 y = 42 }
+#IF $M3D vertex{ z = 234 y = 45 }
+#IF $M3D vertex{ z = 231 y = 48 }
+#IF $M3D vertex{ z = 228 y = 48 }
+#IF $M3D vertex{ z = 228 y = 54 }
+#IF $M3D vertex{ z = 255 y = 54 }
+#IF $M3D vertex{ z = 255 y = 48 }
+#IF $M3D vertex{ z = 249 y = 42 }
+#IF $M3D vertex{ z = 249 y = 36 }
+#IF $M3D vertex{ z = 246 y = 33 }
+#IF $M3D vertex{ z = 246 y = 0 }
+
+# Pattern 20
+#IF $M3D vertex{ z = 144 y = 0 }
+#IF $M3D vertex{ z = 144 y = 117 }
+#IF $M3D vertex{ z = 147 y = 120 }
+#IF $M3D vertex{ z = 153 y = 120 }
+#IF $M3D vertex{ z = 156 y = 117 }
+#IF $M3D vertex{ z = 156 y = 0 }
